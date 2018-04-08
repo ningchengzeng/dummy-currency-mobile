@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:81/";
+var baseUrl = "http://139.162.90.234:82/";
 $('.unit2 a').click(function () {
     if ($(this).hasClass('active')) {
         return;

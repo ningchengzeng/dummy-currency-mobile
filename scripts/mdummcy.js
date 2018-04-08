@@ -1,5 +1,4 @@
-var BASE_URL = "http://localhost:81/";
-
+var BASE_URL = "http://139.162.90.234:82/";
 /**
  * 工具处理
  * @type {{loadHomeNewCoin: util.loadHomeNewCoin, loadHomevolrank: util.loadHomevolrank, loadHomeCoinMaxChange: util.loadHomeCoinMaxChange, loadconcept: util.loadconcept}}
