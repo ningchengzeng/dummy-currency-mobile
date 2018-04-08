@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <title>虚拟币月成交量排行榜</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-title" content="五指山" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="applicable-device" content="mobile">
+    <meta name="MobileOptimized" content="width" />
+    <meta name="HandheldFriendly" content="true" />
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    <link rel="canonical" href="../index.html" />
+    <link href="../themes/default/css/mstyle.css" rel="stylesheet">
+    <script src="../js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="../themes/default/css/chartist.min.css">
+</head>
+
+<body>
+    <nav class="memu">
+        <div class="list">
+            <div class="memuheader">
+                导航
+                <div class="back"></div>
+            </div>
+
+            <ul class="navList">
+                <!-- <li id="userinfo" style="display:none">
+                <a href="/setting/" style="color:blue;" class="userLink">
+                    <img src="../themes/default/images/sharelogo.png" alt="">
+                    <span class="name" id="username"></span>
+                    <span class="tit">个人中心</span>
+                </a>
+            </li> -->
+
+                <li>
+                    <a href="#">自选行情</a>
+                </li>
+                <li class="">
+                    <div class="">行情</div>
+                    <ul>
+                        <li>
+                            <a href="index.html">所有</a>
+                        </li>
+                        <li>
+                            <a href="index.html">货币</a>
+                        </li>
+                        <li>
+                            <a href="index.html">代币</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>排行榜</div>
+                    <ul>
+                        <li>
+                            <a href="vol.html">24小时成交量排行（币种）</a>
+                        </li>
+                        <li>
+                            <a href="volexchange.html">24小时成交量排行（平台）</a>
+                        </li>
+                        <li>
+                            <a href="monthrank.html">月成交量排行</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div>趋势</div>
+                    <ul>
+                        <li>
+                            <a href="maxchange.html">涨跌幅排行榜</a>
+                        </li>
+                        <li>
+                            <a href="newcoin.html">最近上市的货币</a>
+                        </li>
+                        <li>
+                            <a href="charts.html">市值趋势</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="exchange.html">交易平台</a>
+                </li>
+                <li>
+                    <a href="gbi.html"> GBI指数</a>
+                </li>
+            </ul>
+
+            <div class="loginBar" style="display:none">
+                <a href="/login/">
+                    <svg t="1514010607177" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3548"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
+                        <defs>
+                            <style type="text/css"></style>
+                        </defs>
+                        <path d="M756.11788 640.491443c24.466228 0 44.270273-19.904329 44.270273-44.404326 0-14.135952-6.580882-26.715455-16.83441-34.846646l0.231267-0.279363c-34.069957-26.452465-71.943542-48.136324-112.840998-63.830771 52.052516-44.799322 85.172845-111.145379 85.172845-185.343265 0-134.86664-109.036345-244.233514-243.496733-244.233514-134.464481 0-243.496733 109.366873-243.496733 244.233514 0 74.197886 33.116235 140.543943 85.172845 185.343265C188.18908 561.050136 69.990051 722.148208 69.901023 911.3565l0 0.083911c0.089028 24.457018 19.886933 44.321438 44.275389 44.321438 24.468275 0 44.182268-19.86442 44.270273-44.321438 0-195.881272 158.925592-355.246887 354.174462-355.246887 80.056314 0 153.758919 27.084868 213.094306 72.157413C733.644029 635.871215 744.337579 640.491443 756.11788 640.491443L756.11788 640.491443zM512.62217 467.204771c-85.434811 0-154.950048-69.730131-154.950048-155.417699 0-85.688591 69.520353-155.424862 154.950048-155.424862s154.950048 69.736271 154.950048 155.424862C667.572218 397.47464 598.051865 467.204771 512.62217 467.204771L512.62217 467.204771zM512.62217 467.204771M924.986939 789.326213l-66.407456 0 0-66.614164c0-18.384719-14.869662-33.305547-33.20424-33.305547-18.376533 0-33.20424 14.920828-33.20424 33.305547l0 66.614164-66.402339 0c-18.376533 0-33.20424 14.916734-33.20424 33.299407 0 18.388812 14.82873 33.305547 33.20424 33.305547l66.402339 0 0 66.609047c0 18.389836 14.82873 33.305547 33.20424 33.305547 18.334577 0 33.20424-14.914688 33.20424-33.305547l0-66.609047 66.407456 0c18.334577 0 33.20424-14.916734 33.20424-33.305547C958.191178 804.241924 943.321516 789.326213 924.986939 789.326213L924.986939 789.326213zM924.986939 789.326213"
+                            p-id="3549" fill="#555"></path>
+                    </svg>
+                    登陆
+                </a>
+                <a href="/register/">
+                    <svg t="1514010911810" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4863"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
+                        <defs>
+                            <style type="text/css"></style>
+                        </defs>
+                        <path d="M322.6 247.6h372.9c18.2 0 32.9 14.8 32.9 32.9 0 18.2-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9 0-18.2 14.7-32.9 32.9-32.9z m0 150.6h254.8c18.2 0 32.9 14.8 32.9 32.9S595.5 464 577.4 464H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m0 150.6h322.3c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m232.1 343.6c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H253c-67.9 0-122.3-57.3-122.3-127.1v-640C130.8 121.3 185.1 64 253 64h518c67.9 0 122.3 57.3 122.3 127.1v418.3c0 18.2-14.8 32.9-32.9 32.9-18.2 0-32.9-14.8-32.9-32.9V191.1c0-34.2-25.6-61.2-56.4-61.2H253c-30.7 0-56.4 27-56.4 61.2v640.1c0 34.2 25.6 61.2 56.4 61.2h301.7zM777 781.8h82.3c17.7 0 32 14.3 32 32s-14.3 32-32 32H777V928c0 17.7-14.3 32-32 32s-32-14.3-32-32v-82.2h-82.3c-17.7 0-32-14.3-32-32s14.3-32 32-32H713v-82.3c0-17.7 14.3-32 32-32s32 14.3 32 32v82.3z"
+                            p-id="4864" fill="#555555"></path>
+                    </svg>
+                    注册
+                </a>
+            </div>
+
+        </div>
+    </nav>
+    <div class="pageheader">
+        <div class="memubtn"></div>
+        <div class="logo">
+            <a href="index.html">
+                <img src="../img/logof.png">
+            </a>
+        </div>
+        <a class="search" href="search.html"></a>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // loaduserinfo();
+        })
+    </script>
+    <div class="content">
+        <div class="theBox theBox-top" style="display:none;">
+
+            <span class="close"></span>
+        </div>
+        <div class="preview_fixed" style="display:none;">
+            <ul>
+                <li>
+                    <a>BTC/Bitfinex</a>
+                    <span class="text-green">104642↑</span>
+                </li>
+                <li>
+                    <a>BTC/Bitfinex</a>
+                    <span class="text-red">104642↓</span>
+                </li>
+                <li>
+                    <a>BTC/Bitfinex</a>
+                    <span class="">104642</span>
+                </li>
+            </ul>
+        </div>
+        <div class="box">
+            <div class="boxTit">
+                <h1>月成交量排行榜</h1>
+            </div>
+            <div class="unitList">
+                <a href="#native" class="price-toggle" data-currency="native">平台价格</a>
+                <a href="#CNY" class="price-toggle active" data-currency="cny">人民币(CNY)</a>
+                <a href="#USD" class="price-toggle" data-currency="usd">美元(USD)</a>
+                <a href="#BTC" class="price-toggle" data-currency="btc">比特币(BTC)</a>
+                <a href="#ETH" class="price-toggle" data-currency="eth">以太坊(ETH)</a>
+                <a href="#JPY" class="price-toggle" data-currency="jpy">日元(JPY)</a>
+                <a href="#KRW" class="price-toggle" data-currency="krw">韩币(KRW)</a>
+                <a href="#HKD" class="price-toggle" data-currency="hkd">港币(HKD)</a>
+                <a href="#INR" class="price-toggle" data-currency="inr">卢比(INR)</a>
+                <a href="#RUB" class="price-toggle" data-currency="rub">卢布(RUB)</a>
+                <a href="#AUD" class="price-toggle" data-currency="aud">澳元(AUD)</a>
+                <a href="#EUR" class="price-toggle" data-currency="eur">欧元(EUR)</a>
+                <a href="#CHF" class="price-toggle" data-currency="chf">法郎(CHF)</a>
+                <a href="#GBP" class="price-toggle" data-currency="gbp">英镑(GBP)</a>
+                <a href="#CAD" class="price-toggle" data-currency="cad">加元(CAD)</a>
+                <a href="#IDR" class="price-toggle" data-currency="idr">印尼盾(IDR)</a>
+                <a href="#BRL" class="price-toggle" data-currency="brl">巴西雷亚尔(BRL)</a>
+                <a href="#TWD" class="price-toggle" data-currency="twd">新台币(TWD)</a>
+                <a href="#MXN" class="price-toggle" data-currency="mxn">比索(MXN)</a>
+            </div>
+            <div id="currency-exchange-rates" data-cny="0.1579211262934727" data-usd="1" data-btc="8706.3500888273611" data-eth="539.29414356857205"
+                data-jpy="0.009468280551687754" data-krw="0.0009274975189441368" data-hkd="0.12744129735240706" data-inr="0.01535272894757043"
+                data-rub="0.017569273449050425" data-aud="0.7731380901942896" data-eur="1.2318077394480271" data-chf="1.0558669776546872"
+                data-gbp="1.4149615201214605" data-cad="0.7772320745023578" data-idr="7.26586806657734e-05" data-brl="0.3054307107525355"
+                data-twd="0.03427552994853564" data-mxn="0.05418824171510554"></div>
+            <div class="multTable" style="position: relative">
+                <table class="tablefixed" cellspacing="0" style="width: 122px">
+                    <thead>
+                        <tr>
+                            <th style="min-width:30px;">#</th>
+                            <th style="min-width:100px;">名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a href="details.html#bitcoin">
+                                    <img src="../themes/img/bit_small.png" alt="比特币-Bitcoin"> BTC
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="scrollbox">
+                    <table class="tableMain" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="min-width:30px;">#</th>
+                                <th style="min-width:100px;">名称</th>
+                                <th style="min-width:140px;">成交量(1天)</th>
+                                <th style="min-width:140px;">成交量(7天)</th>
+                                <th style="min-width:140px;">成交量(1月)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <a href="details.html#bitcoin/">
+                                        <img src="../themes/img/bit_small.png" alt="比特币-Bitcoin"> BTC
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="volume" data-usd="6117828668.88874" data-cny="38739564667.59" data-btc="704864.432374688"
+                                        href="details.html#markets">¥3,873,956万</a>
+                                </td>
+                                <td>
+                                    <a class="volume" data-usd="45885587107.2677" data-cny="290440658084.599" data-btc="5418353.30233884"
+                                        href="details.html#markets">¥29,044,066万</a>
+                                </td>
+                                <td>
+                                    <a class="volume" data-usd="203560221469.587" data-cny="1289189264475.21" data-btc="21152204.8787161"
+                                        href="details.html#markets">¥128,918,926万</a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="padding5">
+                <div class="seemore">
+                    <a href="javascript:void(0);" page="1">查看更多</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="theBox theBox-bottom">
+
+    </div>
+    <div class="footer">
+        <div>
+            <a href="about.html">关于我们</a>&nbsp;|&nbsp;
+            <a href="contact.html">联系我们</a>&nbsp;|&nbsp;
+            <a href="faq.html">常见问题</a>&nbsp;|&nbsp;
+            <a href="manager.html">免责声明</a>&nbsp;|&nbsp;
+            <a href="../index.html">电脑版页面</a>
+
+        </div>
+        <div>©Copyright wuzhishan.com 2017</div>
+        <div>备案号：XICP备********号-*</div>
+        <div>
+        </div>
+    </div>
+    <script src="../scripts/msite.js?v=1.19"></script>
+    <script src="../scripts/ggmodule.js?v=1.19"></script>
+
+</body>
+
+</html>
