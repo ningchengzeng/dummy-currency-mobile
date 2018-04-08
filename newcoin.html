@@ -13,11 +13,11 @@
     <meta name="applicable-device" content="mobile">
     <meta name="MobileOptimized" content="width" />
     <meta name="HandheldFriendly" content="true" />
-    <link rel="shortcut icon" href="../img/favicon.ico" />
-    <link rel="canonical" href="../index.html" />
-    <link href="../themes/default/css/mstyle.css" rel="stylesheet">
-    <script src="../js/jquery-2.1.1.js"></script>
-    <link rel="stylesheet" href="../themes/default/css/chartist.min.css">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="canonical" href="index.html" />
+    <link href="themes/default/css/mstyle.css" rel="stylesheet">
+    <script src="js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="themes/default/css/chartist.min.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
             <ul class="navList">
                 <!-- <li id="userinfo" style="display:none">
                 <a href="/setting/" style="color:blue;" class="userLink">
-                    <img src="../themes/default/images/sharelogo.png" alt="">
+                    <img src="themes/default/images/sharelogo.png" alt="">
                     <span class="name" id="username"></span>
                     <span class="tit">个人中心</span>
                 </a>
@@ -90,7 +90,7 @@
                 </li>
             </ul>
 
-            <div class="loginBar" style="display:none">
+            <!-- <div class="loginBar" style="display:none">
                 <a href="/login/">
                     <svg t="1514010607177" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3548"
                         xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
@@ -113,7 +113,7 @@
                     </svg>
                     注册
                 </a>
-            </div>
+            </div> -->
 
         </div>
     </nav>
@@ -121,7 +121,7 @@
         <div class="memubtn"></div>
         <div class="logo">
             <a href="index.html">
-                <img src="../img/logof.png">
+                <img src="img/logof.png">
             </a>
         </div>
         <a class="search" href="search.html"></a>
@@ -192,16 +192,7 @@
                             <th style="min-width:100px;">名称</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <a href="details.html#uptoken">
-                                    <img src="../themes/img/Litecion_small.png" alt="UP"> UP
-                                </a>
-                            </td>
-
-                        </tr>
+                    <tbody id="items1">
                     </tbody>
                 </table>
                 <div class="scrollbox">
@@ -218,31 +209,7 @@
                                 <th style="min-width:100px;">上市时间</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a href="details.html">
-                                        <img src="//static.feixiaohao.com/coin/20180321/7ae53dae6c0e4178b47a34ce8f39f764.png" alt="UP"> UP
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="details.html#markets" target="_blank" class="price" data-usd="0.2616" data-cny="1.66" data-btc="0.00003005">¥1.66</a>
-                                </td>
-                                <td>
-                                    <div class="text-red">-13.11%</div>
-                                </td>
-                                <td class="market-cap" data-usd="?" data-cny="?" data-btc="?">?</td>
-                                <td>?</td>
-
-                                <td class="volume" data-usd="8036860" data-cny="41451321.7935296" data-btc="758.568553768472">
-                                    <a href="details.html#markets">¥4,145万 </a>
-                                </td>
-
-                                <td>
-                                    1天前
-                                </td>
-                            </tr>
+                        <tbody id="items2">
                         </tbody>
                     </table>
                 </div>
@@ -260,7 +227,7 @@
             <a href="contact.html">联系我们</a>&nbsp;|&nbsp;
             <a href="faq.html">常见问题</a>&nbsp;|&nbsp;
             <a href="manager.html">免责声明</a>&nbsp;|&nbsp;
-            <a href="../index.html">电脑版页面</a>
+            <a href="index.html">电脑版页面</a>
 
         </div>
         <div>©Copyright wuzhishan.com 2017</div>
@@ -268,8 +235,13 @@
         <div>
         </div>
     </div>
-    <script src="../scripts/msite.js?v=1.19"></script>
-    <script src="../scripts/ggmodule.js?v=1.19"></script>
+    <script src="scripts/msite.js?v=1.19"></script>
+    <script src="scripts/ggmodule.js?v=1.19"></script>
+    <script src='js/util.js'></script>
+    <script src="scripts/mdummcy.js"></script>
+    <script>
+    newCoin.process();
+    </script>
 </body>
 
 </html>

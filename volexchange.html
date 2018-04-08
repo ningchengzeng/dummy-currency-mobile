@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 
 <head>
-    <title>交易平台24小时成交量排行-非小号</title>
+    <title>交易平台24小时成交量排行</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="alternate" media="only screen and(max-width: 640px)" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -14,11 +14,11 @@
     <meta name="applicable-device" content="mobile">
     <meta name="MobileOptimized" content="width" />
     <meta name="HandheldFriendly" content="true" />
-    <link rel="shortcut icon" href="../img/favicon.ico" />
-    <link rel="canonical" href="../index.html" />
-    <link href="../themes/default/css/mstyle.css" rel="stylesheet">
-    <script src="../js/jquery-2.1.1.js"></script>
-    <link rel="stylesheet" href="../themes/default/css/chartist.min.css">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="canonical" href="index.html" />
+    <link href="themes/default/css/mstyle.css" rel="stylesheet">
+    <script src="js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="themes/default/css/chartist.min.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
             <ul class="navList">
                 <!-- <li id="userinfo" style="display:none">
                 <a href="/setting/" style="color:blue;" class="userLink">
-                    <img src="../themes/default/images/sharelogo.png" alt="">
+                    <img src="themes/default/images/sharelogo.png" alt="">
                     <span class="name" id="username"></span>
                     <span class="tit">个人中心</span>
                 </a>
@@ -122,7 +122,7 @@
         <div class="memubtn"></div>
         <div class="logo">
             <a href="index.html">
-                <img src="../img/logof.png">
+                <img src="img/logof.png">
             </a>
         </div>
         <a class="search" href="search.html"></a>
@@ -189,73 +189,7 @@
                 data-twd="0.034254993624460585" data-mxn="0.05397761008733577">
             </div>
             <div id="result">
-                <div class="rankHead_plant">
-                    <span class="tag blue">NO.1</span>
-                    <span class="tit">
-                        <a href="exchangedetails.html">
-                            <img src="../themes/img/fc88d4f22dec4d67b374e6d46aab7380_2_100_100.png" alt="币安网-Binance">
-                            <div class="name">
-                                币安网-Binance
-                                <br>
 
-                                <i class="star"></i>
-                                <i class="star"></i>
-                                <i class="star"></i>
-                                <i class="star"></i>
-                                <i class="star"></i>
-
-                            </div>
-                        </a>
-                    </span>
-                    <span class="val" data-usd="1746351901.18" data-btc="203627.94" data-cny="10914699382.38">¥1,091,470万</span>
-                </div>
-                <div class="multTable" style="position: relative">
-                    <table class="tablefixed" cellspacing="0" style="width: 122px">
-                        <thead>
-                            <tr>
-                                <th style="min-width:30px;">#</th>
-                                <th style="min-width:100px;">名称</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a href="details.html">BTC</a>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                    <div class="scrollbox">
-                        <table class="tableMain" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th style="min-width:30px;">#</th>
-                                    <th style="min-width:100px;">名称</th>
-                                    <th style="min-width:90px;">交易对</th>
-                                    <th style="min-width:140px;">成交量(24h)</th>
-                                    <th style="min-width:140px;">价格</th>
-                                    <th style="min-width:140px;">成交量占比</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <a href="details.html">BTC</a>
-                                    </td>
-                                    <td>BTC/USDT</td>
-                                    <td class="volume" data-usd="273904367" data-cny="1730904954" data-btc="32111" data-native="32111">¥173,090万 </td>
-                                    <td class="price" data-usd="8530" data-cny="53904" data-btc="1" data-native="8530">¥53,904</td>
-                                    <td>15.74%</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
             <div class="padding5">
                 <div class="seemore">
@@ -273,7 +207,7 @@
             <a href="contact.html">联系我们</a>&nbsp;|&nbsp;
             <a href="faq.html">常见问题</a>&nbsp;|&nbsp;
             <a href="manager.html">免责声明</a>&nbsp;|&nbsp;
-            <a href="../index.html">电脑版页面</a>
+            <a href="index.html">电脑版页面</a>
 
         </div>
         <div>©Copyright wuzhishan.com 2017</div>
@@ -281,10 +215,14 @@
         <div>
         </div>
     </div>
-    <script src="../scripts/msite.js?v=1.19"></script>
-    <script src="../scripts/ggmodule.js?v=1.19"></script>
+    <script src="scripts/msite.js?v=1.19"></script>
+    <script src="scripts/ggmodule.js?v=1.19"></script>
 
-
+    <script src='js/util.js'></script>
+    <script src="scripts/mdummcy.js"></script>
+    <script>
+    volexchange.process();
+    </script>
 
 
 </body>

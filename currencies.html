@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 
 <head>
-    <title>莱特币-Litecoin (LTC) 最新价格-行情走势图-币值分析</title>
+    <title>最新价格-行情走势图-币值分析</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="alternate" media="only screen and(max-width: 640px)" href="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -135,10 +135,10 @@
     <div class="content">
         <div class="fixedPrice">
             <div class="tit">
-                <img src="themes/img/Litecoin.png">LTC </div>
+                <img src="themes/img/Litecoin.png"></div>
             <div class="price1">¥1,048</div>
             <div class="range">
-                <span class="text-red" id="upOrDown">-4.8%</span>
+                <span class="text-red">-4.8%</span>
             </div>
             <div class="lowheight">最高¥1,110&nbsp;/&nbsp;最低¥1,046</div>
         </div>
@@ -155,7 +155,7 @@
             <div class="price1">
                 <div class="main">
                     <span id="price"></span>
-                    <span class="tag red"></span>
+                    <span class="tag red" id="upOrDown"></span>
                 </div>
                 <div class="sub">
                     <div id="mainy"></div>
@@ -788,7 +788,6 @@
                     data: "currency=" + coinCode,
                     success: function (data) {
                         if (data != null) {
-                            debugger;
                             $('#midName').text(data.title.cn+"("+data.title.en+")");//
                             $('#coinLogo').attr('src', data.icon);//
                             $('#24Max').text(data.twenty.price.max);//

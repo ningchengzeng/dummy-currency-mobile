@@ -92,30 +92,29 @@ GbiGraph.prototype.fetchAndLoad = function (callback, start, end) {
         timeParams = start + "/" + end + "/";
     }
 
-    var data2={"coinrank": []};
 
-    if(undefined!=data2 && null!=data2)
-			{
-				if(data2.coinrank.length>=1)
-				{
-					$("#coinrankBox").css("display","block");
-				}					
-			}
-        callback.call(that, data2);
-             
-    // $.ajax({
-    //     url: apiDomain + "/coinrank/" +coincode+"/"+ timeParams,
-    //     type: "GET",
-    //     dataType: "json",
-    //     error: function () {
-    //         that.hideLoading();
-    //         that.showNoData();
-    //     },
-    //     success: function (data) {
-			
-			 
-    //     }
-    // });
+    var coincode = GetRequest().currency;
+    var urig = baseUrl + "mapi/mobile/getCoinrank";
+    $.ajax({
+        url: urig,
+        type: "GET",
+        dataType: "json",
+        data: "currency=" + coincode + "&time=" + timeParams,
+        error: function () {
+            that.hideLoading();
+            that.showNoData();
+        },
+        success: function (data) {
+            //var fdata = $.parseJSON(data);
+            if (undefined != data && null != data) {
+                if (data.coinrank.length >= 1) {
+                    $("#coinrankBox").css("display", "block");
+                }
+            }
+            callback.call(that, data);
+
+        }
+    });
 }
 GbiGraph.prototype.initCharts = function (seriesData) {
     var that = this;
@@ -130,7 +129,7 @@ GbiGraph.prototype.initCharts = function (seriesData) {
             months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
             printChart: '打印图表',
             shortMonths: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-           
+
             rangeSelectorZoom: "缩放",
             resetZoom: "恢复初始缩放等级",
             resetZoomTitle: " 1:1缩放等级",
@@ -140,9 +139,9 @@ GbiGraph.prototype.initCharts = function (seriesData) {
             thousandsSep: ","
         }
     });
-    var titleName =   $("#coinname").val()+"历史排名趋势图"; 
+    var titleName = $("#coinname").val() + "历史排名趋势图";
     $('#' + that.graphId).highcharts('StockChart', {
-        chart: { type: 'line', zoomType: is_mobile() ? 'null' : 'x',  ignoreHiddenSeries: true },
+        chart: { type: 'line', zoomType: is_mobile() ? 'null' : 'x', ignoreHiddenSeries: true },
         tooltip: { shared: true, hideDelay: 50, xDateFormat: '%A, %b %d %Y' },
         legend: {
             enabled: false,
@@ -160,7 +159,7 @@ GbiGraph.prototype.initCharts = function (seriesData) {
         scrollbar: { liveRedraw: false },
         title: { text: "", align: "left", style: { fontSize: "24px" } },
         subtitle: { text: '' },
-      
+
         xAxis: [{
             dateTimeLabelFormats: {
                 day: '%Y<br/>%m-%d',
@@ -181,11 +180,11 @@ GbiGraph.prototype.initCharts = function (seriesData) {
             height: '100%',
             opposite: true,
             floor: 0,
-            min: 1, 
+            min: 1,
             reversed: true
         }],
         series: [{
-            name: $("#coinname").val()+"排名",
+            name: $("#coinname").val() + "排名",
             yAxis: 0,
             color: '#85BCEB',
             tooltip: { pointFormatter: tooltip_format_fiat },

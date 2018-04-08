@@ -1,11 +1,11 @@
-var BASE_URL = "http://139.162.90.234:81/";
+var BASE_URL = "http://localhost:81/";
 
 /**
  * 工具处理
  * @type {{loadHomeNewCoin: util.loadHomeNewCoin, loadHomevolrank: util.loadHomevolrank, loadHomeCoinMaxChange: util.loadHomeCoinMaxChange, loadconcept: util.loadconcept}}
  */
-var util={
-    loadHomeNewCoin: function() {
+var util = {
+    loadHomeNewCoin: function () {
         var uri = BASE_URL + "api/currency/homenewcoin";
         $.ajax({
             url: uri,
@@ -18,8 +18,8 @@ var util={
         });
     },
 
-    loadHomevolrank: function() {
-        var uri = BASE_URL +"api/currency/homevolrank";
+    loadHomevolrank: function () {
+        var uri = BASE_URL + "api/currency/homevolrank";
         $.ajax({
             url: uri,
             type: "GET",
@@ -32,8 +32,8 @@ var util={
         });
     },
 
-    loadHomeCoinMaxChange: function() {
-        var uri = BASE_URL +"api/currency/HomeCoinMaxChange";
+    loadHomeCoinMaxChange: function () {
+        var uri = BASE_URL + "api/currency/HomeCoinMaxChange";
         $.ajax({
             url: uri,
             type: "GET",
@@ -46,12 +46,12 @@ var util={
         });
     },
 
-    loadconcept: function(conceptid) {
-        var uri = BASE_URL +"api/currency/hotconcept";
+    loadconcept: function (conceptid) {
+        var uri = BASE_URL + "api/currency/hotconcept";
         $.ajax({
             url: uri,
             dataType: "json",
-            data:'conceptid='+conceptid,
+            data: 'conceptid=' + conceptid,
             success: function (data) {
                 if (null != data.result1 && data.result1.length > 0) {
                     $('#loadhotconcept').hide();
@@ -85,20 +85,20 @@ var index = {
     pageCount: 1,
     pageSize: 50,
     pageCurrent: 1,
-    row: function(data){
-        return "<tr style='height: 20px;' id=\""+ data["code"] +"\">" +
-            "<td>" +data["index"] + "</td>" +
+    row: function (data) {
+        return "<tr style='height: 20px;' id=\"" + data["code"] + "\">" +
+            "<td>" + data["index"] + "</td>" +
             "<td>" +
-            "<a href=\"currencies.html?currency="+ data["code"] +"\" target=\"_blank\">" +
-            "<img src=\""+data["icon"]+"\" alt=\""+ data["title"] +"\">" +data["title"]+
+            "<a href=\"currencies.html?currency=" + data["code"] + "\" target=\"_blank\">" +
+            "<img src=\"" + data["icon"] + "\" alt=\"" + data["title"] + "\">" + data["title"] +
             "</a>" +
             "</td>" +
-            "<td class=\"market-cap\" data-usd=\""+data["circulation"]["usd"]+"\" data-cny=\""+data["circulation"]["cny"]+"\" data-btc=\""+data["circulation"]["btc"]+"\">"+data["circulation"]["init"]+"</td>" +
+            "<td class=\"market-cap\" data-usd=\"" + data["circulation"]["usd"] + "\" data-cny=\"" + data["circulation"]["cny"] + "\" data-btc=\"" + data["circulation"]["btc"] + "\">" + data["circulation"]["init"] + "</td>" +
             "<td>" +
-            " <a href=\"currencies.html?currency="+ data["code"] +"\" target=\"_blank\" class=\"price\" data-usd=\""+data["price"]["usd"]+"\" data-cny=\"" +data["price"]["usd"]+ "\"" +
-            "   data-btc=\"" +data["price"]["btc"]+ "\">" +data["price"]["init"]+ "</a>" +
+            " <a href=\"currencies.html?currency=" + data["code"] + "\" target=\"_blank\" class=\"price\" data-usd=\"" + data["price"]["usd"] + "\" data-cny=\"" + data["price"]["usd"] + "\"" +
+            "   data-btc=\"" + data["price"]["btc"] + "\">" + data["price"]["init"] + "</a>" +
             " </td>" +
-            " <td>" +data["amount"]+ "</td>" +
+            " <td>" + data["amount"] + "</td>" +
             " <td>" +
             " <a href=\"currencies.html?currency=" + data["code"] + "\" target=\"_blank\" class=\"volume\" " +
             "data-usd=\"" + data["circulation"]["usd"] + "\"" +
@@ -106,61 +106,61 @@ var index = {
             "data-btc=\"" + + data["circulation"]["usd"] + + "\">" + data["circulation"]["init"] + "</a>" +
             "</td>" +
             "<td class=\"change\">" +
-            "  <span class=\"text-green\">" +data["circulationRate"]+ "</span>" +
+            "  <span class=\"text-green\">" + data["circulationRate"] + "</span>" +
             " </td>" +
             " <td class=\"change\">" +
-            "   <span class=\"text-green\">" +data["roseRate"]["day"]+ "</span>" +
+            "   <span class=\"text-green\">" + data["roseRate"]["day"] + "</span>" +
             "</td>" +
             "</tr>";
     },
-    page:{
-        pageReader: function(){
+    page: {
+        pageReader: function () {
             $("div.pageList").empty();
 
-            if(index.pageCurrent == 1){
+            if (index.pageCurrent == 1) {
                 $("div.pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="index.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">首页</a>'+
+                    '<a href="#" class="btn btn-white">首页</a>' +
                     '<a class=\'btn btn-white\' onclick="index.page.next()" href=\'#\'>></a>');
-            }else if(index.pageCurrent == index.pageCount -1){
+            } else if (index.pageCurrent == index.pageCount - 1) {
                 $("div.pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="index.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">尾页</a>'+
+                    '<a href="#" class="btn btn-white">尾页</a>' +
                     '<a class=\'btn btn-white\' onclick="index.page.next()" href=\'#\'>></a>');
-            }else{
+            } else {
                 $("div.pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="index.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">第' + index.pageCurrent + '页</a>'+
+                    '<a href="#" class="btn btn-white">第' + index.pageCurrent + '页</a>' +
                     '<a class=\'btn btn-white\' onclick="index.page.next()" href=\'#\'>></a>');
             }
         },
-        next: function(){
-            if(index.pageCurrent < index.pageSize){
-                index.pageCurrent ++;
+        next: function () {
+            if (index.pageCurrent < index.pageSize) {
+                index.pageCurrent++;
             }
             index.page.pageReader();
             index.ajaxData();
         },
-        prev: function(){
-            if(index.pageCurrent > 1){
-                index.pageCurrent -- ;
+        prev: function () {
+            if (index.pageCurrent > 1) {
+                index.pageCurrent--;
             }
             index.page.pageReader();
             index.ajaxData();
         }
     },
-    ajaxData: function(){
-        if(window.interval){
+    ajaxData: function () {
+        if (window.interval) {
             window.clearInterval(window.interval);
             delete window.interval;
         }
         exchange.page.pageReader();
 
-        var data = function(){
-            var urip = BASE_URL +"api/currency/indexAll?pageSize=" + index.pageSize+ "&page=" + index.pageCurrent;
+        var data = function () {
+            var urip = BASE_URL + "api/currency/indexAll?pageSize=" + index.pageSize + "&page=" + index.pageCurrent;
             $.ajax({
                 url: urip,
                 type: "GET",
                 dataType: 'json',
                 success: function (data) {
-                    index.pageCount = Math.ceil(data.count/index.pageSize);
+                    index.pageCount = Math.ceil(data.count / index.pageSize);
                     $("div.boxContain table#table tbody").empty();
                     $(data.result).each(function (indexData, item) {
                         $("div.boxContain table#table tbody").append(index.row(item));
@@ -172,7 +172,7 @@ var index = {
         data();
         window.interval = window.setInterval(data, 1000 * 2);
     },
-    process : function(){
+    process: function () {
         index.ajaxData();
         util.loadHomeNewCoin(); //新币
         util.loadHomevolrank(); //销售量排行
@@ -188,20 +188,26 @@ var index = {
  * @type {{row: newCoin.row, getNewCoin: newCoin.getNewCoin, setvalue: newCoin.setvalue, validate: newCoin.validate, process: newCoin.process}}
  */
 var newCoin = {
-    row: function(data){
+    row1: function (data, index) {
         return '<tr>'
-            + '<td><a href="currencies.html?currency='+data.code+'" target="_blank"><img src="'+newCoin.setvalue(data.icon)+'" alt="'+data.title.cn+'">'+data.title.cn+'</a></td>'
-            + ' <td>'+data.title.short+'</td>'
-            + ' <td class="market-cap" data-usd="'+data.marketCap.usd+'" data-cny="'+data.marketCap.cny+'" data-btc="'+data.marketCap.btc+'">￥'+data.marketCap.cny+'</td>'
-            + ' <td><a href="currencies.html?currency='+data.code+'" target="_blank" class="price" data-usd="'+data.price.usd+'" data-cny="'+data.price.cny+'" data-btc="'+data.price.cny+'">￥'+data.price.cny+'</a></td>'
-            + ' <td>'+data.amount+'</td>'
-            + ' <td class="volume" data-usd="'+data.volume.usd+'" data-cny="'+data.volume.cny+'" data-btc="'+data.volume.btc+'"><a href="currencies.html?currency='+data.code+'#markets" target="_blank">￥'+data.volume.cny+'</a></td>'
-            + '<td><div '+ newCoin.validate(data.updown.replace("%",""))+'>'+data.updown+'</div></td>'
-            + '<td>'+data.date+'</td>'
+            + '<td>' + (index + 1) + '</td>'
+            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
             + '</tr>';
     },
-    getNewCoin: function() {
-        var uri = BASE_URL + "api/currency/getNewCoin";
+    row2: function (data, index) {
+        return '<tr>'
+            + '<td>' + (index + 1) + '</td>'
+            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
+            + '<td><a href="currencies.html?currency=' + data.code + '" target="_blank" class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '">' + data.price.init + '</a></td>'
+            + '<td><div ' + newCoin.validate(data.updown.replace("%", "")) + '>' + data.updown + '</div></td>'
+            + '<td class="market-cap" data-usd="' + data.marketCap.usd + '" data-cny="' + data.marketCap.cny + '" data-btc="' + data.marketCap.btc + '">' + data.marketCap.init + '</td>'
+            + '<td>' + data.amount + '</td>'
+            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href="currencies.html?currency=' + data.code + '">' + data.volume.init + '</a></td>'
+            + '<td>' + data.date + '</td>'
+            + '</tr>';
+    },
+    getNewCoin: function () {
+        var uri = BASE_URL + "mapi/mobile/getNewCoin";
         $.ajax({
             url: uri,
             type: "GET",
@@ -209,23 +215,21 @@ var newCoin = {
             success: function (data) {
                 $('#items').empty();
                 $(data).each(function (indexData, item) {
-                    $('#items').append(newCoin.row(item));
+                    $('#items1').append(newCoin.row1(item, indexData));
+                    $('#items2').append(newCoin.row2(item, indexData));
                 });
             }
         });
     },
-    setvalue: function(val){
-        return val.replace(/(\/\d{8}\/)/,'/time/').replace("//static.feixiaohao.com","themes");
-    },
-    validate:function(num) {
+    validate: function (num) {
         var reg = /^\d+(?=\.{0,1}\d+$|$)/
-        if(reg.test(num)){
-            return 'class="text-green"' ;
-        }else{
+        if (reg.test(num)) {
+            return 'class="text-green"';
+        } else {
             return 'class="text-red"';
         }
     },
-    process: function(){
+    process: function () {
         newCoin.getNewCoin();
     }
 };
@@ -236,19 +240,23 @@ var newCoin = {
  * @type {{}}
  */
 var upDown = {
-    row: function(index,data){
+    row1: function (index, data) {
+        return '<tr>'
+            + '<td>' + (index + 1) + '</td>'
+            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.short + '</a></td>'
+            + '</tr>';
+    },
+    row2: function (index, data) {
         return '<tr>'
             + '<td><span>' + (index + 1) + '</span></td>'
             + '<td><a href="currencies.html?currency=' + data.code + '" target="_blank"><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.cn + '</a></td>'
-            + '<td>' + data.title.short + '</td>'
-            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href="currencies.html?currency=' + data.code + '#markets" target="_blank">' + data.volume.init + '</a></td>'
+            + '<td><span ' + upDown.validate(data.proportion) + '>' + data.proportion + '%</span></td>'
             + '<td class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '"><a href="currencies.html?currency=' + data.code + '#markets" target="_blank">' + data.price.init + '</a></td>'
-            + '<td><span class="text-green">' + data.proportion + '%</span></td>'
+            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href="currencies.html?currency=' + data.code + '#markets" target="_blank">' + data.volume.init + '</a></td>'
             + '</tr>';
     },
-
-    gettingupDown: function(){
-        var uri = BASE_URL + "api/currency/getupdown";
+    gettingupDown: function () {
+        var uri = BASE_URL + "mapi/mobile/getupdown";
 
         $.ajax({
             url: uri,
@@ -263,53 +271,73 @@ var upDown = {
                 data6 = result[5];
 
                 if (data1.length != 0) {
-                    $('#items1').empty();
-                    $(data1).each(function(index, item){
-                        $('#items1').append(upDown.row(index, item));
+                    $('#item24UpTop').empty();
+                    $('#item24UpDetails').empty();
+                    $(data1).each(function (index, item) {
+                        $('#item24UpTop').append(upDown.row1(index, item));
+                        $('#item24UpDetails').append(upDown.row2(index, item));
                     });
                 }
 
                 if (data2.length != 0) {
-                    $('#items2').empty();
-                    $(data2).each(function(index, item){
-                        $('#items2').append(upDown.row(index, item));
+                    $('#item24DownTop').empty();
+                    $('#item24DownDetails').empty();
+                    $(data2).each(function (index, item) {
+                        $('#item24DownTop').append(upDown.row1(index, item));
+                        $('#item24DownDetails').append(upDown.row2(index, item));
                     });
                 }
 
                 if (data3.length != 0) {
-                    $('#items3').empty();
-                    $(data3).each(function(index, item){
-                        $('#items3').append(upDown.row(index, item));
+                    $('#itemUpTop').empty();
+                    $('#itemUpDetails').empty();
+                    $(data3).each(function (index, item) {
+                        $('#itemUpTop').append(upDown.row1(index, item));
+                        $('#itemUpDetails').append(upDown.row2(index, item));
                     });
                 }
 
                 if (data4.length != 0) {
-                    $('#items4').empty();
-                    $(data4).each(function(index, item){
-                        $('#items4').append(upDown.row(index, item));
+                    $('#itemDownTop').empty();
+                    $('#itemDownDetails').empty();
+                    $(data4).each(function (index, item) {
+                        $('#itemDownTop').append(upDown.row1(index, item));
+                        $('#itemDownDetails').append(upDown.row2(index, item));
                     });
                 }
 
                 if (data5.length != 0) {
-                    $('#items5').empty();
-                    $(data5).each(function(index, item){
-                        $('#items5').append(upDown.row(index, item));
+                    $('#itemwup').empty();
+                    $('#itemwdown').empty();
+                    $(data5).each(function (index, item) {
+                        $('#itemwup').append(upDown.row1(index, item));
+                        $('#itemwdown').append(upDown.row2(index, item));
                     });
                 }
 
                 if (data6.length != 0) {
-                    $('#items6').empty();
-                    $(data6).each(function(index, item){
-                        $('#items6').append(upDown.row(index, item));
+                    $('#itemwDownTop').empty();
+                    $('#itemwDownDetails').empty();
+                    $(data6).each(function (index, item) {
+                        $('#itemwDownTop').append(upDown.row1(index, item));
+                        $('#itemwDownDetails').append(upDown.row2(index, item));
                     });
                 }
             }
         });
     },
-    setvalue:function(val) {
+    setvalue: function (val) {
         return val.replace(/(\/\d{8}\/)/, '/time/');
     },
-    process: function(){
+    validate: function (num) {
+        var reg = /^\d+(?=\.{0,1}\d+$|$)/
+        if (reg.test(num)) {
+            return 'class="text-green"';
+        } else {
+            return 'class="text-red"';
+        }
+    },
+    process: function () {
         util.loadHomeNewCoin();
         util.loadHomevolrank();
         $('#zxss').hide();
@@ -328,8 +356,8 @@ var exchange = {
     pageSize: 20,
     pageCurrent: 1,
 
-    row: function(index, item){
-        if(item.title){
+    row: function (index, item) {
+        if (item.title) {
             return '<li>'
                 + '<div class="con"><a target="_blank" href="exchangedetails.html?currenty=' + item.code + '" class="pic"><img src="' + item.icon + '.jpg"></a>'
                 + '<div class="info">'
@@ -337,7 +365,7 @@ var exchange = {
                 + '<a target="_blank" href="exchangedetails.html?currenty=' + item.code + '"><b>' + item.title + '</b></a>'
                 + '<div class="star star' + item.star + ' style="float: right"></div>'
                 + '</div>'
-                + '<div class="des">'+item.desc+'</div>'
+                + '<div class="des">' + item.desc + '</div>'
                 + '<i class="space"></i>国家:'
                 + '<a href="' + item.countryHref + '">' + item.countryTitle + '</a>'
                 + '<a href=\ "{0}\"></a>'
@@ -349,12 +377,12 @@ var exchange = {
                 + '</div>'
                 + '</div>'
                 + '</li>';
-        }else{
+        } else {
             return "";
         }
 
     },
-    setIValue: function(val) {
+    setIValue: function (val) {
         var i = '';
         var tags = val.tags;
         for (var s = 0; s < tags.length; s++) {
@@ -362,40 +390,40 @@ var exchange = {
         }
         return i;
     },
-    page:{
-        pageReader: function(){
+    page: {
+        pageReader: function () {
             $("div.pageList").empty();
 
-            if(exchange.pageCurrent == 1){
+            if (exchange.pageCurrent == 1) {
                 $("div#pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="exchange.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">首页</a>'+
+                    '<a href="#" class="btn btn-white">首页</a>' +
                     '<a class=\'btn btn-white\' onclick="exchange.page.next()" href=\'#\'>></a>');
-            }else if(exchange.pageCurrent == exchange.pageCount -1){
+            } else if (exchange.pageCurrent == exchange.pageCount - 1) {
                 $("div#pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="exchange.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">尾页</a>'+
+                    '<a href="#" class="btn btn-white">尾页</a>' +
                     '<a class=\'btn btn-white\' onclick="exchange.page.next()" href=\'#\'>></a>');
-            }else{
+            } else {
                 $("div#pageList").append('<a href=\'#\' class=\'btn btn-white\' onclick="exchange.page.prev()"><</a>' +
-                    '<a href="#" class="btn btn-white">第' + exchange.pageCurrent + '页</a>'+
+                    '<a href="#" class="btn btn-white">第' + exchange.pageCurrent + '页</a>' +
                     '<a class=\'btn btn-white\' onclick="exchange.page.next()" href=\'#\'>></a>');
             }
         },
-        next: function(){
-            if(exchange.pageCurrent < exchange.pageSize){
-                exchange.pageCurrent ++;
+        next: function () {
+            if (exchange.pageCurrent < exchange.pageSize) {
+                exchange.pageCurrent++;
             }
             exchange.page.pageReader();
             exchange.ajaxData();
         },
-        prev: function(){
-            if(exchange.pageCurrent > 1){
-                exchange.pageCurrent -- ;
+        prev: function () {
+            if (exchange.pageCurrent > 1) {
+                exchange.pageCurrent--;
             }
             exchange.page.pageReader();
             exchange.ajaxData();
         }
     },
-    ajaxData: function(){
+    ajaxData: function () {
         var uri = BASE_URL + "api/currency/getExchange";
         exchange.page.pageReader();
         $.ajax({
@@ -403,17 +431,17 @@ var exchange = {
             type: "GET",
             dataType: 'json',
             data: "pagesize=" + exchange.pageSize + "&page=" + exchange.pageCurrent,
-            success: function(data){
-                exchange.pageCount = Math.ceil(data.count/index.pageSize);
+            success: function (data) {
+                exchange.pageCount = Math.ceil(data.count / index.pageSize);
 
                 $('#itemsList').empty();
-                $(data.result).each(function(index, item){
+                $(data.result).each(function (index, item) {
                     $('#itemsList').append(exchange.row(index, item));
                 });
             }
         });
     },
-    process: function(){
+    process: function () {
         util.loadHomevolrank();
         util.loadHomeNewCoin();
         util.loadHomevolrank();
@@ -427,19 +455,19 @@ var exchange = {
  * @type {{}}
  */
 var concept = {
-    row: function(data){
+    row: function (data) {
         return "<tr>" +
             "<td>" +
             "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
-            "<td>"+data.price24H+"</td>" +
+            "<td>" + data.price24H + "</td>" +
             "<td class=\"text-red\">" + data.avrUpDown + "</td>" +
             "<td title=\"" + data.up.title + "\">" +
-            "   <a href=\"currencies.html?currency=" + data.up.code + "\" target=\"_blank\">"+data.up.title +"</a>" +
-            "   <span class=\"tags-green\">" +data.up.amount+ "</span>" +
+            "   <a href=\"currencies.html?currency=" + data.up.code + "\" target=\"_blank\">" + data.up.title + "</a>" +
+            "   <span class=\"tags-green\">" + data.up.amount + "</span>" +
             "</td>" +
             "<td title=\"" + data.down.title + "\">" +
-            "   <a href=\"currencies.html?currency=" + data.down.code + "\" target=\"_blank\">" +data.down.title+ "</a>" +
-            "   <span class=\"tags-red\">" +data.down.amount+ "</span>" +
+            "   <a href=\"currencies.html?currency=" + data.down.code + "\" target=\"_blank\">" + data.down.title + "</a>" +
+            "   <span class=\"tags-red\">" + data.down.amount + "</span>" +
             "</td>" +
             "<td>" + data.coin.count + "</td>" +
             "<td>" +
@@ -447,7 +475,7 @@ var concept = {
             "</td>" +
             "</tr>";
     },
-    dataAjax: function() {
+    dataAjax: function () {
         var uri = BASE_URL + "api/currency/getConcept";
         $.ajax({
             url: uri,
@@ -461,7 +489,7 @@ var concept = {
             }
         });
     },
-    process: function(){
+    process: function () {
         util.loadHomeCoinMaxChange();//涨跌幅
         concept.dataAjax();
     }
@@ -473,7 +501,7 @@ var concept = {
  * @type {{process: coneptCoin.process}}
  */
 var coneptCoin = {
-    baseReader: function(desc){
+    baseReader: function (desc) {
         $("#title").append(desc.title);
         $("#avrUpDown").append(desc.avrUpDown);
         $("#coinCount").append(desc.coin.count);
@@ -490,47 +518,47 @@ var coneptCoin = {
         $("#downTitle").attr("href", "currencies.html?currency=" + desc.up.code);
         $("#downAmount").append(desc.down.amount);
     },
-    row: function(data){
+    row: function (data) {
         return '<tr id="iota">' +
-            '<td>' + data['index'] +'</td>' +
+            '<td>' + data['index'] + '</td>' +
             '<td>' +
-            '   <a href="currencies.html?currency='+data["code"]+'" target="_blank">' +
-            '   <img src="'  + data['icon'] + '" alt="'  + data['title'] + '">' + data['title'] + '</a>' +
+            '   <a href="currencies.html?currency=' + data["code"] + '" target="_blank">' +
+            '   <img src="' + data['icon'] + '" alt="' + data['title'] + '">' + data['title'] + '</a>' +
             '</td>' +
             '<td class="market-cap" ' +
-            '   data-usd="' + data['marketCap']["usd"] +'" ' +
-            '   data-cny="' + data['marketCap']["cny"] +'" ' +
-            '   data-btc="' + data['marketCap']["btc"] +'">' + data['marketCap']["init"] +'</td>' +
+            '   data-usd="' + data['marketCap']["usd"] + '" ' +
+            '   data-cny="' + data['marketCap']["cny"] + '" ' +
+            '   data-btc="' + data['marketCap']["btc"] + '">' + data['marketCap']["init"] + '</td>' +
             '<td>' +
             ' <a href="details.html#markets" target="_blank" class="price" ' +
-            '   data-usd="' + data['price']["usd"] +'" ' +
-            '   data-cny="' + data['price']["cny"] +'"' +
-            '   data-btc="' + data['price']["btc"] +'">' + data['price']["init"] +'</a>' +
+            '   data-usd="' + data['price']["usd"] + '" ' +
+            '   data-cny="' + data['price']["cny"] + '"' +
+            '   data-btc="' + data['price']["btc"] + '">' + data['price']["init"] + '</a>' +
             '</td>' +
-            '<td>' + data['index'] +'</td>' +
+            '<td>' + data['index'] + '</td>' +
             '<td>' +
             '<a href="details.html#markets" target="_blank" ' +
             '   class="volume" ' +
-            '   data-usd="' + data['exchange24H']["usd"] +'" ' +
-            '   data-cny="' + data['exchange24H']["cny"] +'"' +
-            '   data-btc="' + data['exchange24H']["btc"] +'">' + data['exchange24H']["init"] +'</a>' +
+            '   data-usd="' + data['exchange24H']["usd"] + '" ' +
+            '   data-cny="' + data['exchange24H']["cny"] + '"' +
+            '   data-btc="' + data['exchange24H']["btc"] + '">' + data['exchange24H']["init"] + '</a>' +
             '</td>' +
             '<td class="change">' +
-            '<span class="text-green">'+ data['updown24H'] +'</span>' +
+            '<span class="text-green">' + data['updown24H'] + '</span>' +
             '</td>' +
             '<td class="char">' +
-            '<span class=\'{"stroke": "#3ca316"}\'>'+ data['char7day'] +'</span>' +
+            '<span class=\'{"stroke": "#3ca316"}\'>' + data['char7day'] + '</span>' +
             '</td>' +
             '</tr>';
     },
-    dataAjax: function(index){
+    dataAjax: function (index) {
         var uri = BASE_URL + "api/currency/getConceptCoin?index=" + index;
         $.ajax({
             url: uri,
             type: "GET",
             dataType: 'json',
             success: function (data) {
-                if(data.desc){
+                if (data.desc) {
                     coneptCoin.baseReader(data.desc);
 
                     $('div.boxContain table.table3 tbody').empty();
@@ -541,7 +569,7 @@ var coneptCoin = {
             }
         });
     },
-    process: function(index){
+    process: function (index) {
         util.loadHomeCoinMaxChange();//涨跌幅
         coneptCoin.dataAjax(index);
     }
@@ -552,40 +580,41 @@ var coneptCoin = {
  * 24小时成交额排行榜人民币(CNY)
  * @type {{process: vol.process}}
  */
-var vol ={
-    pageIndex : 0,
-    dataAjax: function(){
-        vol.pageIndex ++;
+
+var vol = {
+    pageIndex: 0,
+    dataAjax: function () {
+        vol.pageIndex++;
         $.ajax({
-            type:"GET",
-            url: BASE_URL + "api/currency/getvol?page=" + vol.pageIndex,
-            async:false,
-            beforeSend:function(){
+            type: "GET",
+            url: BASE_URL + "mapi/mobile/getvol?page=" + vol.pageIndex,
+            async: false,
+            beforeSend: function () {
                 $('.loading2').css("display", "block"); //显示加载时候的提示
             },
             success: function (ret) {
                 if (ret.length > 0) {
-                    $(".boxContain").append(ret);
+                    $("#result").append(ret);
                 } else {
                     vol.pageIndex = 1;
                 }
                 $('.loading2').css("display", "none"); //显示加载时候的提示
-            }  ,
-            error: function(){
-                if(vol.pageIndex > 0){
-                    vol.pageIndex --;
+            },
+            error: function () {
+                if (vol.pageIndex > 0) {
+                    vol.pageIndex--;
                 }
             }
         });
     },
-    scroll: function(){
-        $(window).scroll(function(){
+    scroll: function () {
+        $(window).scroll(function () {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 vol.dataAjax()
             }
         });
     },
-    process: function(){
+    process: function () {
         vol.dataAjax();
         vol.scroll();
     }
@@ -595,41 +624,41 @@ var vol ={
  *
  * @type {{pageIndex: number, dataAjax: volexchange.dataAjax, scroll: volexchange.scroll, process: volexchange.process}}
  */
-var volexchange={
+var volexchange = {
     pageIndex: 0,
-    dataAjax: function(){
-        volexchange.pageIndex ++;
+    dataAjax: function () {
+        volexchange.pageIndex++;
         $.ajax({
-            url: BASE_URL + "api/currency/getvolexchange?page=" +  volexchange.pageIndex,
+            url: BASE_URL + "mapi/mobile/getvolexchange?page=" + volexchange.pageIndex,
             type: "GET",
             dataType: 'json',
-            async:false,
+            async: false,
             beforeSend: function () {
                 $('.loading2').css("display", "block"); //显示加载时候的提示
             },
             success: function (data) {
                 if (data.length > 0) {
-                    $(".boxContain").append(data);
+                    $("#result").append(data);
                 } else {
                     volexchange.pageIndex = 1;
                 }
                 $('.loading2').css("display", "none"); //显示加载时候的提示
             },
-            error: function(){
-                if(volexchange.pageIndex > 0){
-                    volexchange.pageIndex --;
+            error: function () {
+                if (volexchange.pageIndex > 0) {
+                    volexchange.pageIndex--;
                 }
             }
         });
     },
-    scroll: function(){
-        $(window).scroll(function(){
+    scroll: function () {
+        $(window).scroll(function () {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 volexchange.dataAjax();
             }
         })
     },
-    process: function(){
+    process: function () {
         volexchange.dataAjax();
         volexchange.scroll();
     }
@@ -639,54 +668,89 @@ var volexchange={
  *
  * @type {{}}
  */
-var monthrank={
-    row: function(item){
-        if(item.title.cn){
-            return '<tr>' +
-                '<td>' +item.index+ '</td>' +
-                '<td>' +
-                '   <a href="currencies.html?currency='+ item["code"] +' target="_blank">' +
-                '   <img src="'+item.icon+'" alt="'+item.title.cn+'"/> ' +item.title.cn+ '</a>' +
-                '</td>' +
-                '<td>'+item.title.short+'</td>' +
-                '<td class="volume" ' +
-                '   data-usd="'+item.oneday.usd+'" ' +
-                '   data-cny="'+item.oneday.cny+'" ' +
-                '   data-btc="'+item.oneday.btc+'">' +
-                '   <a href="currencies.html?currency='+ item["code"] +'#markets" target="_blank">'+item.oneday.init+'</a>' +
-                '</td>' +
-                '<td class="volume" ' +
-                '   data-usd="'+item.siveday.usd+'" ' +
-                '   data-cny="'+item.siveday.cny+'" ' +
-                '   data-btc="'+item.siveday.btc+'">' +
-                '   <a href="currencies.html?currency='+ item["code"] +'#markets" target="_blank">'+item.siveday.init+'</a>' +
-                '</td>' +
-                '<td class="volume" ' +
-                '   data-usd="'+item.month.usd+'" ' +
-                '   data-cny="'+item.month.cny+'" ' +
-                '   data-btc="'+item.month.btc+'">' +
-                '   <a href="currencies.html?currency='+ item["code"] +'#markets" target="_blank">'+item.month.init+'</a>' +
-                '</td>' +
-                '</tr>';
-        }else{
-            return "";
-        }
-    },
-    dataAjax: function(){
-        var uri = BASE_URL + "api/currency/getMonthMxchange";
+var monthrank = {
+    pageIndex: 0,
+    dataAjax: function () {
+        monthrank.pageIndex++;
+        var uri = BASE_URL + "mapi/mobile/monthmxchange?page=" + monthrank.pageIndex;
         $.ajax({
             url: uri,
             type: "GET",
             dataType: 'json',
+            beforeSend: function () {
+                $('.loading2').css("display", "block"); //显示加载时候的提示
+            },
             success: function (data) {
-                $('table#table-data tbody').empty();
-                $(data).each(function (indexData, item) {
-                    $('table#table-data tbody').append(monthrank.row(item));
-                });
+                if (data.result1.length > 0) {
+                    $("#result1").append(data.result1);
+                    $("#result2").append(data.result2);
+                } else {
+                    monthrank.pageIndex = 1;
+                }
+                $('.loading2').css("display", "none"); //显示加载时候的提示
+            },
+            error: function () {
+                if (monthrank.pageIndex > 0) {
+                    monthrank.pageIndex--;
+                }
             }
         });
     },
-    process: function(){
+    scroll: function () {
+        $(window).scroll(function () {
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                monthrank.dataAjax();
+            }
+        })
+    },
+    process: function () {
         monthrank.dataAjax();
+        monthrank.scroll();
+    }
+};
+
+
+/**
+ *
+ * @type {{}}
+ */
+var mexchange = {
+    pageIndex: 0,
+    dataAjax: function () {
+        mexchange.pageIndex++;
+        var uri = BASE_URL + "mapi/mobile/mexchange?page=" + mexchange.pageIndex;
+        $.ajax({
+            url: uri,
+            type: "GET",
+            dataType: 'json',
+            beforeSend: function () {
+                $('.loading2').css("display", "block"); //显示加载时候的提示
+            },
+            success: function (data) {
+                if (data.result1.length > 0) {
+                    $("#tablefixed").append(data.result1);
+                    $("#tableMain").append(data.result2);
+                } else {
+                    mexchange.pageIndex = 1;
+                }
+                $('.loading2').css("display", "none"); //显示加载时候的提示
+            },
+            error: function () {
+                if (mexchange.pageIndex > 0) {
+                    mexchange.pageIndex--;
+                }
+            }
+        });
+    },
+    scroll: function () {
+        $(window).scroll(function () {
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                mexchange.dataAjax();
+            }
+        })
+    },
+    process: function () {
+        mexchange.dataAjax();
+        mexchange.scroll();
     }
 };
