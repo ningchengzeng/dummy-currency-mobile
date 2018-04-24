@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<title>登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="alternate" media="only screen and(max-width: 640px)" href="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-title" content="五指山" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="applicable-device" content="mobile">
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link rel="canonical" href="index.html" />
+<link href="themes/default/css/mstyle.css" rel="stylesheet">
+<script src="js/jquery-2.1.1.js"></script>
+<link rel="stylesheet" href="themes/default/css/chartist.min.css">
+<body>
+<style>
+    body {
+        background: #fff;
+    }
+
+    .layui-layer-content {
+        color: #fff;
+    }
+</style>
+<div class="pageheader">
+    <div class="back" onclick="window.history.go(-1)"></div>
+    <div class="h1"><h1>非小号-用户登陆</h1></div>
+</div>
+<div class="content">
+    <div class="form">
+        <div class="logo2"><img src="img/logo.png" alt=""></div>
+        <div class="formcell">
+            <input type="text" placeholder="输入手机号码或邮箱" id="user">
+        </div>
+        <div class="formcell">
+            <input type="password" placeholder="输入密码" id="pwd">
+        </div>
+    </div>
+    <div class="btngroup">
+        <button class="login" id="loginsite">立即登陆</button>
+        <button id="regAccount" onclick="window.location.replace('register.html');">注册账号</button>
+    </div>
+</div>
+
+<script src="scripts/ggmodule.js?v=1.19"></script>
+<script type="text/javascript" src="scripts/jquery.autocomplete.min.js?v=1.13"></script>
+<script type="text/javascript" src="scripts/mdummcy.js"></script>
+<script type="text/javascript">login.process();</script>
+</body>
+</html>

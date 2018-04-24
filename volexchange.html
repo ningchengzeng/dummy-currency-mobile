@@ -30,13 +30,13 @@
             </div>
 
             <ul class="navList">
-                <!-- <li id="userinfo" style="display:none">
-                <a href="/setting/" style="color:blue;" class="userLink">
+                <li id="userinfo" style="display:none">
+                <a href="javascript:void(0);" style="color:blue;" class="userLink">
                     <img src="themes/default/images/sharelogo.png" alt="">
                     <span class="name" id="username"></span>
                     <span class="tit">个人中心</span>
                 </a>
-            </li> -->
+            </li>
 
                 <li>
                     <a href="#">自选行情</a>
@@ -48,10 +48,10 @@
                             <a href="index.html">所有</a>
                         </li>
                         <li>
-                            <a href="index.html">货币</a>
+                            <a href="index.html?type=dummcy">货币</a>
                         </li>
                         <li>
-                            <a href="index.html">代币</a>
+                            <a href="index.html?type=token">代币</a>
                         </li>
                     </ul>
                 </li>
@@ -86,13 +86,10 @@
                 <li>
                     <a href="exchange.html">交易平台</a>
                 </li>
-                <li>
-                    <a href="gbi.html"> GBI指数</a>
-                </li>
             </ul>
 
             <div class="loginBar" style="display:none">
-                <a href="/login/">
+                <a href="login.html">
                     <svg t="1514010607177" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3548"
                         xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
                         <defs>
@@ -103,7 +100,7 @@
                     </svg>
                     登陆
                 </a>
-                <a href="/register/">
+                <a href="register.html">
                     <svg t="1514010911810" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4863"
                         xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
                         <defs>
@@ -125,11 +122,11 @@
                 <img src="img/logof.png">
             </a>
         </div>
-        <a class="search" href="search.html"></a>
+        <!--<a class="search" href="search.html"></a>-->
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            // loaduserinfo();
+            loaduserinfo();
         })
     </script>
 

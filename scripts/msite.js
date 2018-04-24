@@ -1243,7 +1243,7 @@ function loadmcoinevent() {
         var result = eval("(" + data + ")");
         if (result.status == "success") {
             layer.msg(result.content);
-            setTimeout(function () { window.location.href = '/login/'; }, 3000);
+            setTimeout(function () { window.location.href = 'login.html'; }, 3000);
            
         }
         else {
@@ -1255,10 +1255,10 @@ function loadmcoinevent() {
 
 //******************************用户登录
     $('#regAccount').click(function () {
-        window.location.href = '/register/';
+        window.location.href = 'register.html';
     })
     $('#usertickerlogin').click(function () {
-        window.location.href = '/login/';
+        window.location.href = 'login.html';
     })
 
     $('#loginsite').click(function () {
@@ -1528,7 +1528,7 @@ function loadmcoinevent() {
         if (result.status == "success") {
             layer.msg("重设成功，请记住新密码!");
 
-            window.location.href = '/login/';
+            window.location.href = 'login.html';
         }
         else {
             layer.msg(result.content);

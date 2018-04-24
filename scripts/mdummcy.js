@@ -1,4 +1,280 @@
-var BASE_URL = "http://localhost:81/";
+var BASE_URL = "http://192.168.99.101/";
+
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+
+function loaduserinfo() {
+    $.ajax({
+        type: "POST",
+        url: BASE_URL+ "user/getUserInfo",
+        dataType: "json",
+        data: {
+            "psession": localStorage.getItem("psession")
+        },
+        success: function (data) {
+            if (data.status == "success") {
+                if (data.username.length > 0 || data.userid.length > 0) {
+                    $(".span .username").html(data.username);
+                    $("div#userinfo").css('display', 'block');
+                    $("div.loginBar").css('display', 'none');
+                } else {
+                    $("div#userinfo").css('display', 'none');
+                    $("div.loginBar").css('display', 'block');
+                }
+            }else{
+                $("div#userinfo").css('display', 'none');
+                $("div.loginBar").css('display', 'block');
+            }
+        }
+    });
+};
+function logout() {
+    if (confirm("确认退出吗？")) {
+        localStorage.removeItem("psession");
+        window.location.reload();
+    }
+}
+
+function addfocus(self) {
+    if(localStorage.getItem("psession")){
+        var currency = $(self).attr("currency");
+        if($(self).attr("focus") == "true"){
+            return;
+        }
+
+        if(currency){
+            $.ajax({
+                type: "POST",
+                url: BASE_URL+ "user/addfocus",
+                dataType: "json",
+                data: {
+                    "psession": localStorage.getItem("psession"),
+                    "currency": currency
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        $(self).attr("focus", true).html("已经关注");
+                    }
+                    else{
+                        $(".login").click();
+                    }
+                }
+            });
+        }
+        else{
+            alert("关注失败!");
+        }
+    }
+    else{
+        $(".login").click();
+    }
+}
+
+function unfocus(self){
+    var currency = $(self).attr("currency");
+    $.ajax({
+        type: "POST",
+        url: BASE_URL+ "user/unfocus",
+        dataType: "json",
+        data: {
+            "psession": localStorage.getItem("psession"),
+            "currency": currency
+        },
+        success: function (data) {
+            alert(data.context)
+            if(data.status == "success"){
+                location.reload();
+            }
+        }
+    });
+}
+
+
+//手机格式
+function checkPhone(p) {
+
+    var re = /^1(3|4|5|7|8)\d{9}$/;
+    if (!re.test(p)) {
+        return false;
+    }
+    else return true;
+}
+//帐号验证
+function checkAccount() {
+    var account = $('.signupForm .account').val();
+    if (account.length > 0) {
+        if (!checkPhone(account)) {
+            alert("手机号码格式不正确");
+            return false
+        }
+        else {return true }
+
+    }
+    else {
+        alert("手机号码不能为空");
+        return false
+    }
+}
+
+var login = {
+    loginResponse:function(result) {
+        if (result.status == "success") {
+            alert(result.content);
+            window.location.replace('index.html?' + Math.random());
+        }
+        else {
+            $("button#loginsite").removeAttr("disabled");
+            $("button#loginsite").html("登陆");
+            alert(result.content);
+        }
+
+    },
+    process: function(){
+        $("button#loginsite").click(function(){
+            var cou = 0;
+            if ($('#user').val().trim() == '') {
+                alert("帐号名不能为空");
+                cou = cou + 1
+
+            }
+            if ($('#pwd').val().trim() == '') {
+                alert("密码名不能为空");
+                cou = cou + 1
+            }
+            if (cou != 0) {
+                return false;
+            } else {
+
+                $(this).attr("disabled", "disabled");
+                $(this).html("登陆中...");
+
+                var parms = new Object();
+                parms["userid"] = $('#user').val().trim();
+                parms["password"] = $('#pwd').val().trim();
+
+                parms["isRemember"] = $('#rememberme').is(':checked');
+                $.ajax({
+                    url: BASE_URL + "user/login",
+                    data: parms,
+                    type:"post",
+                    async: true,
+                    success: function (data) {
+                        login.loginResponse(data);
+                    }
+                });
+            }
+        });
+    }
+};
+var register = {
+
+//处理手机重置密码发送短信验证码的反馈信息
+    regsmsResponse: function(result) {
+        if (result == "1") {
+            alert("手机短信验证码发送成功!");
+        }
+        else if (result == "0") {
+            alert("手机短信验证码发送失败!");
+        }
+        else if (result == "2") {
+            alert("短信验证码发送频繁, 休息下吧!");
+        }
+        else if (result == "3") {
+            alert("手机号码已注册!");
+        }
+        else {
+            alert("手机号码不能为空!");
+        }
+    },
+    //处理注册的反馈信息
+    registerResponse:function(result) {
+        if (result.status == "success") {
+            alert(result.content);
+            setTimeout(function () { window.location.href = 'login.html'; }, 3000);
+
+        }
+        else {
+            alert(result.content);
+        }
+
+    },
+    process: function(){
+        $('#register').click(function () {
+            var name = $('#user').val();
+            var phonecode = $('#phonecode').val();
+            var pwd1 = $('#pwd').val();
+            var pwd2 = $('#pwd2').val();
+            //var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+            if (name == '' || phonecode == '' || pwd1 == '' || pwd2 == '') {
+                alert('请填写完整表单再提交');
+                return false
+            }
+            if (!checkPhone(name)) {
+                alert('手机号码格式不正确');
+                return false
+            }
+            if (pwd1 !== pwd2) {
+                alert('两次密码输入必须一致');
+                return false
+            }
+            if (pwd1.length < 6) {
+                alert('密码长度必须大于6');
+                return false
+            }
+            var parms = new Object();
+            parms["userid"] = name;
+            parms["password"] = pwd1;
+            parms["confirmPwd"] = pwd2;
+            parms["verifyCode"] = phonecode;
+            $.ajax({
+                url: BASE_URL + "user/register",
+                type: 'post',
+                data: parms,
+                async: true,
+                success: function (data) {
+                    register.registerResponse(data);
+                },
+                error: function () {
+                    alert('网络错误，请重试')
+                }
+            })
+        });
+
+        //发送短信验证码（手机找回）
+        $('#sendsmsreg').click(function () {
+            var telno = $('#user').val();
+            if (telno.length == 0) {
+                layer.msg("手机号码不能为空!");
+            }
+            else {
+                $.ajax({
+                    url: BASE_URL + "user/GetSms?telno=" + telno,
+                    data: telno,
+                    type: "get",
+                    async: true,
+                    success: function (data) {
+                        register.regsmsResponse(data);
+                    }
+                });
+            }
+
+        })
+    }
+};
+
+
+
+
 
 /**
  * 工具处理
@@ -139,19 +415,190 @@ var index = {
     pageCount: 1,
     pageSize: 50,
     pageCurrent: 1,
-    row: function (data) {
-
+    rowName: function(data){
+        return "<tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "  </tr>";
     },
-    page: {
+    row: function (data) {
+        var updown24HCalss = "text-red";
+        if(data.updown24H>0){
+            updown24HCalss = "text-green";
+        }
 
+        return " <tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\" class=\"price\" data-usd=\""+data.price.usd+"\" data-cny=\""+data.price.cny+"\" data-btc=\""+data.price.cny+"\">"+data.price.init+"</a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <div class=\""+updown24HCalss+"\">"+data.updown24H+"%</div>" +
+            "      </td>" +
+            "      <td class=\"market-cap\" data-usd=\""+data.marketCap.usd+"\" data-cny=\""+data.marketCap.cny+"\" data-btc=\""+data.marketCap.btc+"\">"+data.marketCap.init+" </td>" +
+            "      <td>" +data.amount+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\""+data.volume.usd+"\" data-cny=\""+ data.volume.cny+"\" data-btc=\""+data.volume.cny+"\">"+data.volume.init+"</a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    header: function(){
+        var uri = BASE_URL + "mapi/mobile/indexHeader";
+        $.ajax({
+            url: uri,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                var result = data.result;
+                $("a#dummcy").text(result.dummcy);
+                $("a#token").text(result.token);
+                $("a#exchange").text(result.exchange);
+                $("a#amount").text(result.amount.price);
+                $("a#market").text(result.market.price);
+            }
+        });
     },
     ajaxData: function () {
-
+        var data = function(){
+            var urip = BASE_URL +"mapi/mobile/currencyindexAll?pageSize=20&page=" + $("div.seemore").attr("page");
+            if(index.type){
+                urip +="&type="+ index.type;
+            }
+            if(index.limit){
+                urip +="&limit="+ index.limit;
+            }
+            if(index.volume){
+                urip +="&volume="+ index.volume;
+            }
+            if(index.price){
+                urip +="&price="+ index.price;
+            }
+            $.ajax({
+                url: urip,
+                type: "GET",
+                dataType: 'json',
+                success: function (data) {
+                    $(data.result).each(function (indexData, item) {
+                        $("table.tablefixed tbody").append(index.rowName(item));
+                        $("table.tableMain tbody").append(index.row(item));
+                    });
+                }
+            });
+        };
+        data();
     },
+    type: GetRequest().type,
+    limit: GetRequest().limit,
+    volume: GetRequest().volume,
+    price: GetRequest().price,
     process: function () {
-
+        index.header();
+        index.ajaxData();
+        $("div.seemore").click(function(){
+            var page = parseInt($(this).attr("page"));
+            $(this).attr("page", ++page);
+            index.ajaxData();
+        });
     }
+};
 
+function search(value){
+    searchIndex.search = value;
+    searchIndex.process();
+}
+
+var searchIndex = {
+    marketRowName: function(){
+        return "<tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"exchangedetails.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    marketRow: function(){
+        return " <tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"exchangedetails.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "      <td>" + util.toThousands(data.price.cny)+" </td>" +
+            "      <td>" + data.coinCount+"</td>" +
+            "      <td>" + data.country.title+ "</td>" +
+            "  </tr>";
+    },
+    coinRowName: function(data){
+        return "<tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    coinRow: function (data) {
+        var updown24HCalss = "text-red";
+        if(data.updown24H>0){
+            updown24HCalss = "text-green";
+        }
+
+        return " <tr>" +
+            "      <td>" +data.index+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\">" +
+            "              <img src=\""+data.icon+"\" alt=\"" +data.title+ "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" +data.code+ "\" class=\"price\" data-usd=\""+data.price.usd+"\" data-cny=\""+data.price.cny+"\" data-btc=\""+data.price.cny+"\">"+data.price.init+"</a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <div class=\""+updown24HCalss+"\">"+data.updown24H+"%</div>" +
+            "      </td>" +
+            "      <td class=\"market-cap\" data-usd=\""+data.marketCap.usd+"\" data-cny=\""+data.marketCap.cny+"\" data-btc=\""+data.marketCap.btc+"\">"+data.marketCap.init+" </td>" +
+            "      <td>" +data.amount+ "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\""+data.volume.usd+"\" data-cny=\""+ data.volume.cny+"\" data-btc=\""+data.volume.cny+"\">"+data.volume.init+"</a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    dataAjax: function(){
+        var urip = BASE_URL +"mapi/mobile/search?search=" + searchIndex.search;
+        $.ajax({
+            url: urip,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                $(data.currencies).each(function (indexData, item) {
+                    $("table.tablefixed tbody", $("div.coin")).append(searchIndex.coinRowName(item));
+                    $("table.tableMain tbody", $("div.coin")).append(searchIndex.coinRow(item));
+                });
+
+                $(data.exchange).each(function (indexData, item) {
+                    $("table.tablefixed tbody", $("div.market")).append(searchIndex.marketRowName(item));
+                    $("table.tableMain tbody", $("div.market")).append(searchIndex.marketRow(item));
+                });
+            }
+        });
+    },
+    search: "",
+    process: function(){
+        searchIndex.dataAjax();
+    }
 };
 
 /**
@@ -206,7 +653,7 @@ var currencies = {
         $(list).each(function (index, item) {
             $(".tablefixed tbody:eq(0)").append(currencies.exchageRowTop(item));
             $(".tableMain tbody:eq(0)").append(currencies.exchageRow(item));
-            
+
         });
     },
     details: function (data, focus) {
@@ -1076,5 +1523,134 @@ var mexchange = {
     process: function () {
         mexchange.dataAjax();
         mexchange.scroll();
+    }
+};
+
+var exchangedetails = {
+    detail: function (detail) {
+        $("div.cover img").attr("src", detail.icon + ".jpg");
+        $('.info h1').text(detail.title);
+
+        for(var i=0;i<detail.star;i++){
+            $(".gread").append("<i class='star'></i>");
+        }
+        $('.val topMoney').text("");
+        $('.val topMoney').append('￥'+util.toThousands(detail.price.cny)+'<span class="tag blue">排名:'+detail.rank+'</span>');
+
+        $('.country').empty();
+        $('.country').append('<a href="exchange.html?code='+detail.country.code+'">'+detail.country.title+'</a>');
+
+        $('.jyd').text(detail.coinCount)
+        $('.gfwz').empty();
+        $('.gfwz').append('<a href="'+detail.wetsitHref+'" rel="nofollow" target="_blank">'+detail.wetsitTitle+'</a>');
+        $('.messagede').empty();
+        $('.messagede').append(detail.description);
+        $('.fymessage').empty();
+        $('.fymessage').append(detail.costDescription);
+    },
+    cointop: function (list) {
+        $(".tablefixed tbody").empty();
+        $(list).each(function (index, item) {
+            $("#tablefixed").append('<tr>'
+                + '<td>'+index+'</td>'
+                + '  <td><a href="/currencies.html?currency=' + item.coinCode + '">'
+                + '         <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a></td>'
+                + '</tr>');
+        });
+    },
+    coin: function (list) {
+        $(".tableMain tbody").empty();
+        $(list).each(function (index, item) {
+            $("#tableMain").append('<tr>'
+                + '<td>'+index+'</td>'
+                + '<td>'
+                + '  <a href="/currencies.html?currency='+item.coinCode+'">'
+                + '       <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a>'
+                + '</td>'
+                + '<td>'+ item.transaction.title +'</td>'
+                + '<td class="price" data-usd="'+ item.price.usd +'" data-cny="'+ item.price.cny +'" data-btc="'+ item.price.btc +'" data-native="'+ item.price.native +'">'+ item.price.init +'</td>'
+                + '<td>'+item.ammount+'</td>'
+                + '<td class="volume" data-usd="' + item.volume.usd +'" data-cny="'+ item.volume.cny +'" data-btc="'+ item.volume.btc +'" data-native="'+ item.volume.native +'">'+ item.volume.init +' </td>'
+                + '<td>'+ item.proportion +'</td>'
+                + '<td>'+ item.time +'</td>'
+                + '   <td><div class="more add" onclick="addlogin();">添加自选</div></td>'
+                + '</tr>');
+        });
+    },
+    chart: function () {
+        $('#piechart_coinvol').highcharts({
+            legend: {
+                itemStyle: {
+                    color: '#666',
+                    fontWeight: 'normal',
+                },
+                itemWidth: 80,
+                symbolRadius: 0
+            },
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                headerFormat: '{series.name}<br>',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '币种成交额占比'
+            }]
+
+        });
+        var siteCode = $("#HSiteCode").val();
+        var pieArr = [];
+
+    },
+    loadPiechartCoinvol: function (code) {
+        $.ajax({
+            url: BASE_URL + "mapi/mobile/exchange_coinvol",
+            type: "GET",
+            dataType: 'json',
+            data: "currency=" + code,
+            success: function (data) {
+                var pieArr = [];
+                $(data).each(function (index, item) {
+                    pieArr.push([item.name, item.y]);
+                });
+                $('#piechart_coinvol').highcharts().series[0].setData(pieArr);
+            }
+        });
+    },
+    dataAjax: function (code) {
+        $.ajax({
+            url: BASE_URL + "mapi/mobile/getExchangeDetail?currenty=" + code,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                exchangedetails.detail(data.detail);
+                exchangedetails.coin(data.coin);
+                exchangedetails.cointop(data.coin);
+            }
+        });
+    },
+    process: function () {
+
+        var currenty = GetRequest().currency.split('/')[0];
+        exchangedetails.dataAjax(currenty);
+        exchangedetails.chart();
+        exchangedetails.loadPiechartCoinvol(currenty);
     }
 };
