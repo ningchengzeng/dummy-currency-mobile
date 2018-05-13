@@ -169,9 +169,6 @@ CapVolGraph.prototype.fetchAndLoad = function (callback, start, end) {
     if (start !== undefined && end !== undefined) {
         timeParams = start + "/" + end + "/";
     }
-
-    
-    
     $.ajax({
         url: baseUrl + "mapi/mobile/getcharts?dataType=" + dataType,
         type: "GET",
