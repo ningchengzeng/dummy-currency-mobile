@@ -200,7 +200,7 @@ var register = {
     registerResponse: function (result) {
         if (result.status == "success") {
             alert(result.content);
-            setTimeout(function () { window.location.href = 'login.html'; }, 3000);
+            setTimeout(function () { window.location.href = '../login.html'; }, 3000);
 
         }
         else {
@@ -461,7 +461,7 @@ var index = {
         return "<tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
@@ -476,12 +476,12 @@ var index = {
         return " <tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\" class=\"price\" data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" data-btc=\"" + data.price.cny + "\">" + data.price.init + "</a>" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\" class=\"price\" data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" data-btc=\"" + data.price.cny + "\">" + data.price.init + "</a>" +
             "      </td>" +
             "      <td>" +
             "          <div class=\"" + updown24HCalss + "\">" + data.updown24H + "%</div>" +
@@ -489,7 +489,7 @@ var index = {
             "      <td class=\"market-cap\" data-usd=\"" + data.marketCap.usd + "\" data-cny=\"" + data.marketCap.cny + "\" data-btc=\"" + data.marketCap.btc + "\">" + data.marketCap.init + " </td>" +
             "      <td>" + data.amount + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" data-btc=\"" + data.volume.cny + "\">" + data.volume.init + "</a>" +
+            "          <a href=\"../currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" data-btc=\"" + data.volume.cny + "\">" + data.volume.init + "</a>" +
             "      </td>" +
             "  </tr>";
     },
@@ -563,7 +563,7 @@ var searchIndex = {
         return "<tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"exchangedetails.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../exchangedetails.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
@@ -573,7 +573,7 @@ var searchIndex = {
         return " <tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"exchangedetails.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../exchangedetails.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
@@ -586,7 +586,7 @@ var searchIndex = {
         return "<tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
@@ -601,12 +601,12 @@ var searchIndex = {
         return " <tr>" +
             "      <td>" + data.index + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\">" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\">" +
             "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
             "          </a>" +
             "      </td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=" + data.code + "\" class=\"price\" data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" data-btc=\"" + data.price.cny + "\">" + data.price.init + "</a>" +
+            "          <a href=" + data.code + "\"../currencies.html?currency=\" class=\"price\" data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" data-btc=\"" + data.price.cny + "\">" + data.price.init + "</a>" +
             "      </td>" +
             "      <td>" +
             "          <div class=\"" + updown24HCalss + "\">" + data.updown24H + "%</div>" +
@@ -614,7 +614,7 @@ var searchIndex = {
             "      <td class=\"market-cap\" data-usd=\"" + data.marketCap.usd + "\" data-cny=\"" + data.marketCap.cny + "\" data-btc=\"" + data.marketCap.btc + "\">" + data.marketCap.init + " </td>" +
             "      <td>" + data.amount + "</td>" +
             "      <td>" +
-            "          <a href=\"currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" data-btc=\"" + data.volume.cny + "\">" + data.volume.init + "</a>" +
+            "          <a href=\"../currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" data-btc=\"" + data.volume.cny + "\">" + data.volume.init + "</a>" +
             "      </td>" +
             "  </tr>";
     },
@@ -761,7 +761,7 @@ var currencies = {
         //热门概念
         if (data.concept) {
             $(data.concept).each(function (index, item) {
-                $("li#concept span.value").append("<a href=\"conceptcoin.html?id=" + item.index + "\" target=\"_blank\">" + item.title + "</a>");
+                $("li#concept span.value").append("<a href=" + item.index + "\"../conceptcoin.html?id=\" target=\"_blank\">" + item.title + "</a>");
             });
         } else {
             $("li#concept").hide();
@@ -992,18 +992,18 @@ var newCoin = {
     row1: function (data, index) {
         return '<tr>'
             + '<td>' + (index + 1) + '</td>'
-            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
+            + '<td><a href=' + data.code + '"../currencies.html?currency="><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
             + '</tr>';
     },
     row2: function (data, index) {
         return '<tr>'
             + '<td>' + (index + 1) + '</td>'
-            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
-            + '<td><a href="currencies.html?currency=' + data.code + '" target="_blank" class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '">' + data.price.init + '</a></td>'
+            + '<td><a href=' + data.code + '"../currencies.html?currency="><img src="' + data.icon + '" alt="' + data.title.short + '"> ' + data.title.short + '</a></td>'
+            + '<td><a href=' + data.code + '"../currencies.html?currency=" target="_blank" class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '">' + data.price.init + '</a></td>'
             + '<td><div ' + newCoin.validate(data.updown.replace("%", "")) + '>' + data.updown + '</div></td>'
             + '<td class="market-cap" data-usd="' + data.marketCap.usd + '" data-cny="' + data.marketCap.cny + '" data-btc="' + data.marketCap.btc + '">' + data.marketCap.init + '</td>'
             + '<td>' + data.amount + '</td>'
-            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href="currencies.html?currency=' + data.code + '">' + data.volume.init + '</a></td>'
+            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href=' + data.code + '"../currencies.html?currency=">' + data.volume.init + '</a></td>'
             + '<td>' + data.date + '</td>'
             + '</tr>';
     },
@@ -1044,16 +1044,16 @@ var upDown = {
     row1: function (index, data) {
         return '<tr>'
             + '<td>' + (index + 1) + '</td>'
-            + '<td><a href="currencies.html?currency=' + data.code + '"><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.short + '</a></td>'
+            + '<td><a href=' + data.code + '"../currencies.html?currency="><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.short + '</a></td>'
             + '</tr>';
     },
     row2: function (index, data) {
         return '<tr>'
             + '<td><span>' + (index + 1) + '</span></td>'
-            + '<td><a href="currencies.html?currency=' + data.code + '" target="_blank"><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.cn + '</a></td>'
+            + '<td><a href=' + data.code + '"../currencies.html?currency=" target="_blank"><img src="' + upDown.setvalue(data.icon) + '" alt="' + data.title.cn + '"> ' + data.title.cn + '</a></td>'
             + '<td><span ' + upDown.validate(data.proportion) + '>' + data.proportion + '%</span></td>'
-            + '<td class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '"><a href="currencies.html?currency=' + data.code + '#markets" target="_blank">' + data.price.init + '</a></td>'
-            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href="currencies.html?currency=' + data.code + '#markets" target="_blank">' + data.volume.init + '</a></td>'
+            + '<td class="price" data-usd="' + data.price.usd + '" data-cny="' + data.price.cny + '" data-btc="' + data.price.btc + '"><a href=' + data.code + '"../currencies.html?currency=#markets" target="_blank">' + data.price.init + '</a></td>'
+            + '<td class="volume" data-usd="' + data.volume.usd + '" data-cny="' + data.volume.cny + '" data-btc="' + data.volume.btc + '"><a href=' + data.code + '"../currencies.html?currency=#markets" target="_blank">' + data.volume.init + '</a></td>'
             + '</tr>';
     },
     gettingupDown: function () {
@@ -1159,8 +1159,8 @@ var mexchange = {
     rowTop: function (index, item) {
         if (item.title) {
             return '<tr>'
-                + '<td><a href="exchangedetails.html?currenty=' + item.code + '"><img src="' + item.icon + '.jpg"></a></td>'
-                + '<td><a href="exchangedetails.html?currenty=' + item.code + '">' + item.title + '</a></td>'
+                + '<td><a href=' + item.code + '"../exchangedetails.html?currenty="><img src="' + item.icon + '.jpg"></a></td>'
+                + '<td><a href=' + item.code + '"../exchangedetails.html?currenty=">' + item.title + '</a></td>'
                 + '</tr>';
         } else {
             return "";
@@ -1169,8 +1169,8 @@ var mexchange = {
     rowMain: function (index, item) {
         if (item.title) {
             return '<tr>'
-                + '<td><a href="exchangedetails.html?currenty=' + item.code + '"><img src="' + item.icon + '.jpg"></a></td>'
-                + '<td><a href="exchangedetails.html?currenty=' + item.code + '">' + item.title + '</a></td>'
+                + '<td><a href=' + item.code + '"../exchangedetails.html?currenty="><img src="' + item.icon + '.jpg"></a></td>'
+                + '<td><a href=' + item.code + '"../exchangedetails.html?currenty=">' + item.title + '</a></td>'
                 + '<td><div class="star-new star' + item.star + '"></div></td>'
                 + '<td>¥' + util.format_crypto_volume(item.price.cny) + '万</td>'
                 + '<td>' + item.coinCount + '</td>'
@@ -1185,7 +1185,7 @@ var mexchange = {
         var i = '';
         var tags = val.tags;
         for (var s = 0; s < tags.length; s++) {
-            i += '<a href="exchangedetails.html?currenty=' + val.code + '&type=2"><i class="' + tags[s] + '"> </i></a>';
+            i += '<a href=' + val.code + '"../exchangedetails.html?currenty=&type=2"><i class="' + tags[s] + '"> </i></a>';
         }
         return i;
     },
@@ -1194,11 +1194,11 @@ var mexchange = {
         if (val) {
             for (var i = 0; i < val.length; i++) {
                 if (val[i] == "xianhuo") {
-                    str += '<a href="exchange.html?type=0">期货 </a>';
+                    str += '<a href="../exchange.html?type=0">期货 </a>';
                 } else if (val[i] == "qihuo") {
-                    str += '<a href="exchange.html?type=1">现货 </a>';
+                    str += '<a href="../exchange.html?type=1">现货 </a>';
                 } else if (val[i] == "otc") {
-                    str += '<a href="exchange.html?type=2">法币 </a>';
+                    str += '<a href="../exchange.html?type=2">法币 </a>';
                 }
             }
         }
@@ -1274,21 +1274,21 @@ var concept = {
     rowTop: function (data) {
         return "<tr>" +
             "<td>" +
-            "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
+            "<a href=" + data.index + "\"../conceptcoin.html?id=\" target=\"_blank\">" + data.title + "</a></td>" +
             "</tr>";
     },
     rowMain: function (data) {
         return "<tr>" +
             "<td>" +
-            "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
+            "<a href=" + data.index + "\"../conceptcoin.html?id=\" target=\"_blank\">" + data.title + "</a></td>" +
             "<td>" + data.price24H + "</td>" +
             "<td class=\"text-red\">" + data.avrUpDown + "</td>" +
             "<td title=\"" + data.up.title + "\">" +
-            "   <a href=\"currencies.html?currency=" + data.up.code + "\" target=\"_blank\">" + data.up.title + "</a>" +
+            "   <a href=" + data.up.code + "\"../currencies.html?currency=\" target=\"_blank\">" + data.up.title + "</a>" +
             '   <span class="'+concept.setTargClass(data.up.amount)+'">' + data.up.amount + '</span>' +
             "</td>" +
             "<td title=\"" + data.down.title + "\">" +
-            "   <a href=\"currencies.html?currency=" + data.down.code + "\" target=\"_blank\">" + data.down.title + "</a>" +
+            "   <a href=" + data.down.code + "\"../currencies.html?currency=\" target=\"_blank\">" + data.down.title + "</a>" +
             '   <span class="'+concept.setTargClass(data.down.amount)+'">' + data.down.amount + '</span>' +
             "</td>" +
             '<td>' + data.coin.count + '</td>' +
@@ -1305,7 +1305,7 @@ var concept = {
         }
     },
     dataAjax: function () {
-        var uri = BASE_URL + "api/currency/getConcept";
+        var uri = BASE_URL + "mapi/mobile/getConceptNew";
         $.ajax({
             url: uri,
             type: "GET",
@@ -1353,7 +1353,7 @@ var coneptCoin = {
         return '<tr id="iota">' +
             '<td>' + data['index'] + '</td>' +
             '<td>' +
-            '   <a href="currencies.html?currency=' + data["code"] + '" target="_blank">' +
+            '   <a href=' + data["code"] + '"../currencies.html?currency=" target="_blank">' +
             '   <img src="' + data['icon'] + '" alt="' + data['title'] + '">' + data['title'] + '</a>' +
             '</td>' +
             '<td class="market-cap" ' +
@@ -1517,7 +1517,7 @@ var monthrank = {
             return '<tr>' +
                 '<td>' + (((pages - 1) * 50) + (index + 1)) + '</td>' +
                 '<td>' +
-                '   <a href="currencies.html?currency=' + item["code"] + '" target="_blank">' +
+                '   <a href=' + item["code"] + '"../currencies.html?currency=" target="_blank">' +
                 '   <img src="' + item.icon + '" alt="' + item.title.cn + '"/> ' + item.title.short + '</a>' +
                 '</td>' +
                 '</tr>';
@@ -1530,26 +1530,26 @@ var monthrank = {
             return '<tr>' +
                 '<td>' + (((pages - 1) * 50) + (index + 1)) + '</td>' +
                 '<td>' +
-                '   <a href="currencies.html?currency=' + item["code"] + '" target="_blank">' +
+                '   <a href=' + item["code"] + '"../currencies.html?currency=" target="_blank">' +
                 '   <img src="' + item.icon + '" alt="' + item.title.cn + '"/>  ' + item.title.short + '</a>' +
                 '</td>' +
                 '<td class="volume" ' +
                 '   data-usd="' + item.oneday.usd + '" ' +
                 '   data-cny="' + item.oneday.cny + '" ' +
                 '   data-btc="' + item.oneday.btc + '">' +
-                '   <a href="currencies.html?currency=' + item["code"] + '" target="_blank">' + item.oneday.init + '</a>' +
+                '   <a href=' + item["code"] + '"../currencies.html?currency=" target="_blank">' + item.oneday.init + '</a>' +
                 '</td>' +
                 '<td class="volume" ' +
                 '   data-usd="' + item.siveday.usd + '" ' +
                 '   data-cny="' + item.siveday.cny + '" ' +
                 '   data-btc="' + item.siveday.btc + '">' +
-                '   <a href="currencies.html?currency=' + item["code"] + '" target="_blank">' + item.siveday.init + '</a>' +
+                '   <a href=' + item["code"] + '"../currencies.html?currency=" target="_blank">' + item.siveday.init + '</a>' +
                 '</td>' +
                 '<td class="volume" ' +
                 '   data-usd="' + item.month.usd + '" ' +
                 '   data-cny="' + item.month.cny + '" ' +
                 '   data-btc="' + item.month.btc + '">' +
-                '   <a href="currencies.html?currency=' + item["code"] + '" target="_blank">' + item.month.init + '</a>' +
+                '   <a href=' + item["code"] + '"../currencies.html?currency=" target="_blank">' + item.month.init + '</a>' +
                 '</td>' +
                 '</tr>';
         } else {
@@ -1721,7 +1721,7 @@ var exchangedetails = {
             $('.val topMoney').append('￥' + util.toThousands(detail.price.cny) + '<span class="tag blue">排名:' + detail.rank + '</span>');
 
             $('.country').empty();
-            $('.country').append('<a href="exchange.html?code=' + detail.country.code + '">' + detail.country.title + '</a>');
+            $('.country').append('<a href=' + detail.country.code + '"../exchange.html?code=">' + detail.country.title + '</a>');
 
             $('.jyd').text(detail.coinCount)
             $('.gfwz').empty();
@@ -1738,7 +1738,7 @@ var exchangedetails = {
         $(list).each(function (index, item) {
             $("#tablefixed").append('<tr>'
                 + '<td>' + index + '</td>'
-                + '  <td><a href="/currencies.html?currency=' + item.coinCode + '">'
+                + '  <td><a href=' + item.coinCode + '"/currencies.html?currency=">'
                 + '         <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a></td>'
                 + '</tr>');
         });
@@ -1749,7 +1749,7 @@ var exchangedetails = {
             $("#tableMain").append('<tr>'
                 + '<td>' + index + '</td>'
                 + '<td>'
-                + '  <a href="/currencies.html?currency=' + item.coinCode + '">'
+                + '  <a href=' + item.coinCode + '"/currencies.html?currency=">'
                 + '       <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a>'
                 + '</td>'
                 + '<td>' + item.transaction.title + '</td>'
