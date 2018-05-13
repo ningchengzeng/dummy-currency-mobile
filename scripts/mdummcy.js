@@ -1,4 +1,4 @@
-var BASE_URL = "http://192.168.99.101/";
+var BASE_URL = "http://localhost:81/";
 
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串
@@ -1175,7 +1175,7 @@ var mexchange = {
                 + '<td>¥' + util.format_crypto_volume(item.price.cny) + '万</td>'
                 + '<td>' + item.coinCount + '</td>'
                 + '<td>' + item.country.title + '</td>'
-                + '<td><a href="exchange.html?type=2">期货</a></td>'
+                + '<td>' + mexchange.settargs(item.tags) + '</td>'
                 + '</tr>'
         } else {
             return "";
@@ -1188,6 +1188,21 @@ var mexchange = {
             i += '<a href="exchangedetails.html?currenty=' + val.code + '&type=2"><i class="' + tags[s] + '"> </i></a>';
         }
         return i;
+    },
+    settargs: function (val) {
+        var str = "";
+        if (val) {
+            for (var i = 0; i < val.length; i++) {
+                if (val[i] == "xianhuo") {
+                    str += '<a href="exchange.html?type=0">期货 </a>';
+                } else if (val[i] == "qihuo") {
+                    str += '<a href="exchange.html?type=1">现货 </a>';
+                } else if (val[i] == "otc") {
+                    str += '<a href="exchange.html?type=2">法币 </a>';
+                }
+            }
+        }
+        return str;
     },
     page: {
         pageReader: function () {
@@ -1256,7 +1271,13 @@ var mexchange = {
  * @type {{}}
  */
 var concept = {
-    row: function (data) {
+    rowTop: function (data) {
+        return "<tr>" +
+            "<td>" +
+            "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
+            "</tr>";
+    },
+    rowMain: function (data) {
         return "<tr>" +
             "<td>" +
             "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
@@ -1264,17 +1285,24 @@ var concept = {
             "<td class=\"text-red\">" + data.avrUpDown + "</td>" +
             "<td title=\"" + data.up.title + "\">" +
             "   <a href=\"currencies.html?currency=" + data.up.code + "\" target=\"_blank\">" + data.up.title + "</a>" +
-            "   <span class=\"tags-green\">" + data.up.amount + "</span>" +
+            '   <span class="'+concept.setTargClass(data.up.amount)+'">' + data.up.amount + '</span>' +
             "</td>" +
             "<td title=\"" + data.down.title + "\">" +
             "   <a href=\"currencies.html?currency=" + data.down.code + "\" target=\"_blank\">" + data.down.title + "</a>" +
-            "   <span class=\"tags-red\">" + data.down.amount + "</span>" +
+            '   <span class="'+concept.setTargClass(data.down.amount)+'">' + data.down.amount + '</span>' +
             "</td>" +
-            "<td>" + data.coin.count + "</td>" +
+            '<td>' + data.coin.count + '</td>' +
             "<td>" +
             "   <span class=\"text-green\">" + data.coin.up + "</span>/<span class=\"text-red\">" + data.coin.down + "</span>" +
             "</td>" +
             "</tr>";
+    },
+    setTargClass:function(val){
+        if(val.replace("%","")>0){
+            return "tag green"
+        }else{
+            return "tag red"
+        }
     },
     dataAjax: function () {
         var uri = BASE_URL + "api/currency/getConcept";
@@ -1283,9 +1311,11 @@ var concept = {
             type: "GET",
             dataType: 'json',
             success: function (data) {
-                $('div.boxContain table.table3.ideaTabel tbody').empty();
+                $('#tablefixed').empty();
+                $('#tableMain').empty();
                 $(data).each(function (indexData, item) {
-                    $('div.boxContain table.table3.ideaTabel tbody').append(concept.row(item));
+                    $('#tablefixed').append(concept.rowTop(item));
+                    $('#tableMain').append(concept.rowMain(item));
                 });
             }
         });
@@ -1562,6 +1592,76 @@ var monthrank = {
     }
 };
 
+
+// var concept = {
+//     row: function(data){
+//         return "<tr>" +
+//             "<td>" +
+//             "<a href=\"conceptcoin.html?id=" + data.index + "\" target=\"_blank\">" + data.title + "</a></td>" +
+//             "<td>"+data.price24H+"</td>" +
+//             "<td "+concept.validate(data.avrUpDown)+ ">" + data.avrUpDown + "</td>" +
+//             "<td title=\"" + data.up.title + "\">" +
+//             "   <a href=\"currencies.html?currency=" + data.up.code + "\" target=\"_blank\">"+data.up.title +"</a>" +
+//             "   <span " +concept.validateTag(data.up.amount) + ">" +data.up.amount+ "</span>" +
+//             "</td>" +
+//             "<td title=\"" + data.down.title + "\">" +
+//             "   <a href=\"currencies.html?currency=" + data.down.code + "\" target=\"_blank\">" +data.down.title+ "</a>" +
+//             "   <span "+concept.validateTag(data.down.amount) + ">" +data.down.amount+ "</span>" +
+//             "</td>" +
+//             "<td>" + data.coin.count + "</td>" +
+//             "<td>" +
+//             "   <span "+concept.validate(data.coin.up)+ ">" + data.coin.up + "</span>/<span " +concept.validate(data.coin.down)+  ">" + data.coin.down + "</span>" +
+//             "</td>" +
+//             "</tr>";
+//     },
+//     dataAjax: function() {
+//         var uri = BASE_URL + "api/currency/getConcept";
+//         $.ajax({
+//             url: uri,
+//             type: "GET",
+//             dataType: 'json',
+//             success: function (data) {
+//                 $('div.boxContain table.table3.ideaTabel tbody').empty();
+//                 $(data).each(function (indexData, item) {
+//                     $('div.boxContain table.table3.ideaTabel tbody').append(concept.row(item));
+//                 });
+//             }
+//         });
+//     },
+//     validateTag: function(num){
+//         if(num.indexOf("%") > 0){
+//             num = num.replace("%","");
+//         }
+
+//         var reg = /^\d+(?=\.{0,1}\d+$|$)/
+//         if(reg.test(num)){
+//             return 'class="tags-green"' ;
+//         }else{
+//             return 'class="tags-red"';
+//         }
+//     },
+//     validate:function(num) {
+//         if(num.indexOf("%") > 0){
+//             num = num.replace("%","");
+//         }
+
+//         var reg = /^\d+(?=\.{0,1}\d+$|$)/
+//         if(reg.test(num)){
+//             return 'class="text-green"' ;
+//         }else{
+//             return 'class="text-red"';
+//         }
+//     },
+//     process: function(){
+//         totop();
+//         concept.dataAjax();
+
+//         util.loadhander();
+//         util.showmarket();
+//         util.hostconceptList();
+//         util.loadHomeCoinMaxChange();//涨跌幅
+//     }
+// };
 
 /**
  *
