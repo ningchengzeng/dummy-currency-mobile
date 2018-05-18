@@ -32,12 +32,12 @@
 
             <ul class="navList">
                 <li id="userinfo" style="display:none">
-                <a href="/setting" style="color:blue;" class="userLink">
-                    <img src="themes/default/images/sharelogo.png" alt="">
-                    <span class="name" id="username"></span>
-                    <span class="tit">个人中心</span>
-                </a>
-            </li>
+                    <a href="/setting" style="color:blue;" class="userLink">
+                        <img src="themes/default/images/sharelogo.png" alt="">
+                        <span class="name" id="username"></span>
+                        <span class="tit">个人中心</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="#">自选行情</a>
@@ -156,24 +156,22 @@
                 <div class="leftside">
 
                     <div class="tit">
-                        <h1>超级算力</h1>
+                        <h1 id="ceptTitle"></h1>
                         <div class="sub">平均涨跌幅</div>
                     </div>
-                    <div class="price1">
-                        <span class="text-green">3.52%</span>
+                    <div class="price1" id="ceptUpOrDown">
+                       
                     </div>
                 </div>
                 <div class="rightside">
                     <div>
                         <span class="tit">表现最佳</span>
-                        <span class="val">XEL
-                            <span class="tag green">18.04%</span>
+                        <span class="val" id="maxUp">
                         </span>
                     </div>
                     <div>
                         <span class="tit">表现最差</span>
-                        <span class="val">SNM
-                            <span class="tag red">-2.06%</span>
+                        <span class="val" id="minDown">
                         </span>
                     </div>
 
@@ -183,15 +181,15 @@
         <div class="box">
             <div class="infoCell">
                 <div class="tit">币总数</div>
-                <div class="val">4</div>
+                <div class="val" id="coinNum">4</div>
             </div>
             <div class="infoCell">
                 <div class="tit">上涨数</div>
-                <div class="val text-green">2</div>
+                <div class="val text-green" id="coinUp">2</div>
             </div>
             <div class="infoCell">
                 <div class="tit">下跌数</div>
-                <div class="val text-red">2</div>
+                <div class="val text-red" id="coinDown">2</div>
             </div>
         </div>
         <div class="box">
@@ -226,54 +224,44 @@
 
             <div class="multTable" style="position: relative">
                 <table class="tablefixed" cellspacing="0" style="width: 122px">
-                    <tr>
-                        <th style="min-width: 30px">#</th>
-                        <th style="min-width: 50px">币种</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <a href="details.html#elastic">
-                                <img src="themes/img/Litecion_small.png">XEL
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                <div class="scrollbox">
-                    <table class="tableMain" cellspacing="0">
+                    <thead>
                         <tr>
                             <th style="min-width: 30px">#</th>
                             <th style="min-width: 50px">币种</th>
-                            <th>流通市值</th>
-                            <th>价格</th>
-                            <th>流通数量</th>
-                            <th>成交额(24h)</th>
-                            <th>涨跌幅(24h)</th>
                         </tr>
+                    </thead>
+                    <tbody id="tablefixed">
                         <tr>
                             <td>1</td>
-                            <td>
-                                <a href="details.html#elastic">
-                                    <img src="themes/img/Litecion_small.png">XEL
-                                </a>
-                            </td>
-                            <td class="market-cap" data-usd="28189280" data-cny="178142155" data-btc="3278">¥1.78亿 </td>
-                            <td>
-                                <a href="details.html#markets" class="price" data-usd="0.3106" data-cny="1.96" data-btc="0.00003611">¥1.96</a>
-                            </td>
-
-                            <td>
-                                9,077万 *
-
-                            </td>
-                            <td>
-                                <a href="details.html#markets" class="volume" data-usd="2234170" data-cny="16157161.1420637"
-                                    data-btc="297.425702609911">¥1,616万</a>
-                            </td>
-                            <td class="change">
-                                <span class="text-green">18.04%</span>
-                            </td>
+                            <td><a href="details.html#elastic"><img src="themes/img/Litecion_small.png">XEL</a></td>
                         </tr>
+                    </tbody>
+
+                </table>
+                <div class="scrollbox">
+                    <table class="tableMain" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 30px">#</th>
+                                <th style="min-width: 50px">币种</th>
+                                <th>流通市值</th>
+                                <th>价格</th>
+                                <th>流通数量</th>
+                                <th>成交额(24h)</th>
+                                <th>涨跌幅(24h)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableMain">
+                            <tr>
+                                <td>1</td>
+                                <td><a href="details.html#elastic"><img src="themes/img/Litecion_small.png">XEL</a></td>
+                                <td class="market-cap" data-usd="28189280" data-cny="178142155" data-btc="3278">¥1.78亿 </td>
+                                <td><a href="details.html#markets" class="price" data-usd="0.3106" data-cny="1.96" data-btc="0.00003611">¥1.96</a></td>
+                                <td>9,077万 *</td>
+                                <td><a href="details.html#markets" class="volume" data-usd="2234170" data-cny="16157161.1420637" data-btc="297.425702609911">¥1,616万</a>                                </td>
+                                <td class="change"><span class="text-green">18.04%</span></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -299,6 +287,10 @@
     </div>
     <script src="scripts/msite.js?v=1.19"></script>
     <script src="scripts/ggmodule.js?v=1.19"></script>
+    <script src="scripts/mdummcy.js"></script>
+    <script type="text/javascript">
+        coneptCoin.process();
+    </script>
 </body>
 
 </html>
