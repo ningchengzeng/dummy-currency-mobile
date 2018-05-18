@@ -1,4 +1,4 @@
-var BASE_URL = "http://192.168.1.23:81/";
+var BASE_URL = "http://139.162.90.234:81/";
 
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串

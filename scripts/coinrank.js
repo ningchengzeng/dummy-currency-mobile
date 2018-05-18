@@ -92,7 +92,7 @@ GbiGraph.prototype.fetchAndLoad = function (callback, start, end) {
         timeParams = start + "/" + end + "/";
     }
     var coincode = GetRequest().currency;
-    var urig = "http://192.168.99.101/api/currency/getCoinrank";
+    var urig = "http://139.162.90.234:81/api/currency/getCoinrank";
     $.ajax({
         url: urig,
         type: "GET",
