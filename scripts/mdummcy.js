@@ -1,4 +1,4 @@
-var BASE_URL = "http://localhost:81/";
+var BASE_URL = "http://192.168.1.23:81/";
 
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串
@@ -1156,6 +1156,7 @@ var mexchange = {
     pageCount: 1,
     pageSize: 20,
     pageCurrent: 1,
+    pageIndex: 0,
     rowTop: function (index, item) {
         if (item.title) {
             return '<tr>'
@@ -1172,8 +1173,8 @@ var mexchange = {
                 + '<td><a href="exchangedetails.html?currenty=' + item.code + '"><img src="' + item.icon + '.jpg"></a></td>'
                 + '<td><a href="exchangedetails.html?currenty=' + item.code + '">' + item.title + '</a></td>'
                 + '<td><div class="star-new star' + item.star + '"></div></td>'
-                + '<td>¥' + util.format_crypto_volume(item.price.cny) + '万</td>'
-                + '<td>' + item.coinCount + '</td>'
+                + '<td>¥' + util.format_crypto_volume(item.price.cny) + '</td>'
+                + '<td>' + item.transactionPairCount + '</td>'
                 + '<td>' + item.country.title + '</td>'
                 + '<td>' + mexchange.settargs(item.tags) + '</td>'
                 + '</tr>'
@@ -1237,16 +1238,27 @@ var mexchange = {
             mexchange.ajaxData();
         }
     },
+    scroll: function () {
+        $(window).scroll(function () {
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                mexchange.ajaxData();
+            }
+        })
+    },
     ajaxData: function () {
-        var uri = BASE_URL + "mapi/mobile/mexchange?page=" + mexchange.pageIndex;
-        mexchange.page.pageReader();
+        var uri = BASE_URL + "mapi/mobile/mexchange";
+        mexchange.pageIndex++;
+        //mexchange.page.pageReader();
         $.ajax({
             url: uri,
             type: "GET",
             dataType: 'json',
-            data: "pagesize=" + mexchange.pageSize + "&page=" + mexchange.pageCurrent,
+            data: "pagesize=" + mexchange.pageSize + "&page=" + mexchange.pageIndex,
+            beforeSend: function () {
+                $('.loading2').css("display", "block"); //显示加载时候的提示
+            },
             success: function (data) {
-                mexchange.pageCount = Math.ceil(data.count / index.pageSize);
+                //mexchange.pageCount = Math.ceil(data.count / index.pageSize);
                 // $('#tablefixed').empty();
                 // $('#tableMain').empty();
                 $(data.result).each(function (index, item) {
@@ -1254,6 +1266,11 @@ var mexchange = {
                     $("#tablefixed").append(mexchange.rowTop(index, item));
                     $("#tableMain").append(mexchange.rowMain(index, item));
                 });
+            },
+            error: function () {
+                if (mexchange.pageIndex > 0) {
+                    mexchange.pageIndex--;
+                }
             }
         });
     },
@@ -1262,6 +1279,7 @@ var mexchange = {
         util.loadHomeNewCoin();
         util.loadHomevolrank();
         mexchange.ajaxData();
+        mexchange.scroll();
     }
 };
 
@@ -1409,6 +1427,7 @@ var coneptCoin = {
                     coneptCoin.baseReader(data.desc);
                     $('#tableMain').empty();
                     $('#tablefixed').empty();
+                    debugger;
                     $(data.list).each(function (indexData, item) {
                         $('#tablefixed').append(coneptCoin.rowTop(item));
                         $('#tableMain').append(coneptCoin.rowMain(item));
@@ -1730,16 +1749,15 @@ var exchangedetails = {
         if (detail.icon) {
             $("div.cover img").attr("src", detail.icon + ".jpg");
             $('.info h1').text(detail.title);
-
             for (var i = 0; i < detail.star; i++) {
                 $(".gread").append("<i class='star'></i>");
             }
-            $('.val topMoney').text("");
-            $('.val topMoney').append('￥' + util.toThousands(detail.price.cny) + '<span class="tag blue">排名:' + detail.rank + '</span>');
-
+            $('#valtopMoney').text("");
+            $('#valtopMoney').append('￥' + util.toThousands(detail.price.cny) + '<span class="tag blue">排名:' + detail.rank + '</span>');
             $('.country').empty();
             $('.country').append('<a href="exchange.html?code=' + detail.country.code + '">' + detail.country.title + '</a>');
-
+            $('#subM').empty()
+            $('#subM').append('≈'+util.toThousands(detail.price.usd)+'&nbsp;&nbsp;&nbsp;≈'+util.toThousands(detail.price.btc)+'BTC')//
             $('.jyd').text(detail.coinCount)
             $('.gfwz').empty();
             $('.gfwz').append('<a href="' + detail.wetsitHref + '" rel="nofollow" target="_blank">' + detail.wetsitTitle + '</a>');
@@ -1751,29 +1769,30 @@ var exchangedetails = {
         }
     },
     cointop: function (list) {
-        $(".tablefixed tbody").empty();
+        $("#tablefixed").empty();
         $(list).each(function (index, item) {
+            debugger;
             $("#tablefixed").append('<tr>'
-                + '<td>' + index + '</td>'
-                + '  <td><a href="/currencies.html?currency=' + item.coinCode + '">'
-                + '         <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a></td>'
+                + '<td>' + (index+1) + '</td>'
+                + '  <td><a href="currencies.html?currency=' + item.coin.code + '">'
+                + '         <img src="' + item.coinIcon + '" alt="' + item.coin.title + '"> ' + item.coin.title + '</a></td>'
                 + '</tr>');
         });
     },
     coin: function (list) {
-        $(".tableMain tbody").empty();
+        $("#tableMain").empty();
         $(list).each(function (index, item) {
             $("#tableMain").append('<tr>'
-                + '<td>' + index + '</td>'
+                + '<td>' + (index+1) + '</td>'
                 + '<td>'
-                + '  <a href="/currencies.html?currency=' + item.coinCode + '">'
-                + '       <img src="' + item.coinIcon + '" alt="' + item.title + '"> ' + item.title + '</a>'
+                + '  <a href="currencies.html?currency=' + item.coinCode + '">'
+                + '       <img src="' + item.coinIcon + '" alt="' + item.coin.title + '"> ' + item.coin.title + '</a>'
                 + '</td>'
                 + '<td>' + item.transaction.title + '</td>'
                 + '<td class="price" data-usd="' + item.price.usd + '" data-cny="' + item.price.cny + '" data-btc="' + item.price.btc + '" data-native="' + item.price.native + '">' + item.price.init + '</td>'
                 + '<td>' + item.ammount + '</td>'
                 + '<td class="volume" data-usd="' + item.volume.usd + '" data-cny="' + item.volume.cny + '" data-btc="' + item.volume.btc + '" data-native="' + item.volume.native + '">' + item.volume.init + ' </td>'
-                + '<td>' + item.proportion + '</td>'
+                + '<td>' + item.exchange.proportion + '%</td>'
                 + '<td>' + item.time + '</td>'
                 + '   <td><div class="more add" onclick="addlogin();">添加自选</div></td>'
                 + '</tr>');
@@ -1843,8 +1862,8 @@ var exchangedetails = {
             dataType: 'json',
             success: function (data) {
                 exchangedetails.detail(data.detail);
-                exchangedetails.coin(data.coin);
-                exchangedetails.cointop(data.coin);
+                exchangedetails.coin(data.code);
+                exchangedetails.cointop(data.code);
             }
         });
     },

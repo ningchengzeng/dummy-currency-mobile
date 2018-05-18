@@ -1527,3 +1527,51 @@ a.delete{
 input{
     -webkit-appearance: none;
 }
+
+
+.star-new {
+    height: 15px;
+    width: 75px;
+    background: url(../star_new.png) no-repeat;
+    background-size: 75px 150px;
+}
+
+.star2 {
+    background-position: 0 -60px;
+}
+
+.star4 {
+    background-position: 0 -45px;
+}
+
+.star6 {
+    background-position: 0 -30px;
+}
+
+.star8 {
+    background-position: 0 -15px;
+}
+
+.star10 {
+    background-position: 0 0;
+}
+
+.star1 {
+    background-position: 0 -75px;
+}
+
+.star3 {
+    background-position: 0 -90px;
+}
+
+.star5 {
+    background-position: 0 -105px;
+}
+
+.star7 {
+    background-position: 0 -120px;
+}
+
+.star9 {
+    background-position: 0 -135px;
+}
