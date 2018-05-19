@@ -54,15 +54,15 @@ function loaduserinfo() {
             if (data.status == "success") {
                 if (data.username.length > 0 || data.userid.length > 0) {
                     $(".span .username").html(data.username);
-                    $("div#userinfo").css('display', 'block');
-                    $("div.loginBar").css('display', 'none');
+                    $(".loginBar").css('display', 'none');
+                    $('#userinfo').css('display', 'block');
                 } else {
-                    $("div#userinfo").css('display', 'none');
-                    $("div.loginBar").css('display', 'block');
+                    $(".loginBar").css('display', 'block');
+                    $('#userinfo').css('display', 'none');
                 }
             } else {
-                $("div#userinfo").css('display', 'none');
-                $("div.loginBar").css('display', 'block');
+                $(".loginBar").css('display', 'block');
+                $('#userinfo').css('display', 'none');
             }
         }
     });
@@ -160,6 +160,7 @@ var login = {
         if (result.status == "success") {
             alert(result.content);
             window.location.replace('index.html?' + Math.random());
+            window.localStorage.setItem("psession", result.content);
         }
         else {
             $("button#loginsite").removeAttr("disabled");
@@ -282,13 +283,13 @@ var register = {
         //发送短信验证码（手机找回）
         $('#sendsmsreg').click(function () {
             var telno = $('#user').val();
+            debugger;
             if (telno.length == 0) {
                 layer.msg("手机号码不能为空!");
             }
             else {
                 $.ajax({
                     url: BASE_URL + "user/GetSms?telno=" + telno,
-                    data: telno,
                     type: "get",
                     async: true,
                     success: function (data) {
@@ -1679,8 +1680,8 @@ var coinmarket = {
             transaction = data.transaction.title;
         }
         return '<tr class="adList">'
-            +'<td>' + (((pages - 1) * 50) + (index + 1)) + '</td>'
-            + '<td><a href="' + data.exchange.href + '" target="_blank"><img height="15" width="18" src="'+ data.exchange.icon + '" alt="'+ data.exchange.title + '"> ' + data.exchange.title + '</a></td>'
+            + '<td>' + (((pages - 1) * 50) + (index + 1)) + '</td>'
+            + '<td><a href="' + data.exchange.href + '" target="_blank"><img height="15" width="18" src="' + data.exchange.icon + '" alt="' + data.exchange.title + '"> ' + data.exchange.title + '</a></td>'
             + '</tr>';
     },
     exchageRow: function (index, data, pages) {
@@ -1727,10 +1728,10 @@ var coinmarket = {
             success: function (data) {
 
                 $(data.result).each(function (index, item) {
-                     $("#result1").append(coinmarket.exchageRowTop(index, item, coinmarket.pageIndex));
-                     $("#result2").append(coinmarket.exchageRow(index, item, coinmarket.pageIndex));
+                    $("#result1").append(coinmarket.exchageRowTop(index, item, coinmarket.pageIndex));
+                    $("#result2").append(coinmarket.exchageRow(index, item, coinmarket.pageIndex));
                 });
-                $('#title_coin').text(data.title.split('-')[1]+"-市场行情");
+                $('#title_coin').text(data.title.split('-')[1] + "-市场行情");
             },
             error: function () {
                 if (coinmarket.pageIndex > 0) {
