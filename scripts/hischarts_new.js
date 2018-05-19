@@ -3362,7 +3362,7 @@ CurrencyDetailGraph.prototype.fetchAndLoad = function(callback, start, end) {
         timeParams = start + "/" + end + "/"
     }
     var slug = GetRequest().currency;
-    var uri = "http://139.162.90.234:81/api/currency/getCoinhisdata";
+    var uri = BASE_URL+"mapi/mobile/getCoinhisdata";
     $.ajax({
         url: uri,
         type: "GET",

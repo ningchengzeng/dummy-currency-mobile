@@ -31,12 +31,12 @@
 
             <ul class="navList">
                 <li id="userinfo" style="display:none">
-                <a href="/setting" style="color:blue;" class="userLink">
-                    <img src="themes/default/images/sharelogo.png" alt="">
-                    <span class="name" id="username"></span>
-                    <span class="tit">个人中心</span>
-                </a>
-            </li>
+                    <a href="/setting" style="color:blue;" class="userLink">
+                        <img src="themes/default/images/sharelogo.png" alt="">
+                        <span class="name" id="username"></span>
+                        <span class="tit">个人中心</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="#">自选行情</a>
@@ -137,7 +137,7 @@
 
         <div class="box">
             <div class="boxTit">
-                <h2>BTC-市场行情</h2>
+                <h2 id="title_coin"></h2>
             </div>
             <div class="unitList">
                 <a href="#native" class="price-toggle" data-currency="native">平台价格</a>
@@ -174,13 +174,13 @@
                             <th style="min-width: 50px">交易平台</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="adList">
+                    <tbody id="result1">
+                        <!-- <tr class="adList">
                             <td>1</td>
                             <td>
                                 <a href="https://www.okex.cn/?channelId=1162544" target="_blank"> OKEX</a>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <div class="scrollbox">
@@ -198,8 +198,8 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="adList">
+                        <tbody id="result2">
+                            <!-- <tr class="adList">
                                 <td>*</td>
                                 <td>
                                     <a href="https://www.okex.cn/?channelId=1162544" rel="nofollow" target="_blank"> OKEX</a>
@@ -216,7 +216,7 @@
                                     <div class="more add" onclick="addlogin();">添加自选</div>
                                 </td>
 
-                            </tr>
+                            </tr> -->
                         </tbody>
 
                     </table>
@@ -252,10 +252,14 @@
     </div>
     <script src="scripts/msite.js?v=1.19"></script>
     <script src="scripts/ggmodule.js?v=1.19"></script>
+    <!-- <script src="scripts/mcoinoutlink.js?v=1.1"></script> -->
+    <script src="scripts/mdummcy.js"></script>
+    <script>
+        $(document).ready(function () {
+            coinmarket.process();
+        });
 
-
-    <script src="//static.feixiaohao.com/scripts/mcoinoutlink.js?v=1.1"></script>
-
+    </script>
 </body>
 
 </html>
