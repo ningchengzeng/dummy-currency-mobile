@@ -1,5 +1,8 @@
 var BASE_URL = "http://139.162.90.234:81/";
 
+$($('.footer').children()[2]).css('display','none');
+$($('.footer').children()[1]).css('display','none');
+
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串
     var theRequest = new Object();
@@ -761,6 +764,11 @@ var currencies = {
             $('#cjy').text("≈$" + util.toThousands(data.twentyPrice.usd));
             $('#cjbtc').text("≈" + util.toThousands(data.twentyPrice.btc) + " " + data.unit);
             $('#upOrDown').text(data.floatRate + "%");//
+            if(data.floatRate >= 0){
+                $('#upOrDown').attr("class","tag green");//
+            }else{
+                $('#upOrDown').attr("class","tag red");//
+            }
             $('#remark').text('');
             $('#remark').append(data.describe);
 

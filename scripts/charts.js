@@ -120,7 +120,6 @@ CapVolGraph.prototype.fetchAndLoad = function (callback, start, end) {
 
     var that = this;
     var dataType = $('#' + that.graphId).data("value");
-    //var apiDomain = "//api.feixiaohao.com";
     timeParams = ""
     if (start !== undefined && end !== undefined) {
         timeParams = start + "/" + end + "/";

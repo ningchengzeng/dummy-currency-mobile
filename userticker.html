@@ -135,15 +135,15 @@
             <div class=preview_fixed style=display:none>
                 <ul>
                     <li>
-                        <a id=ticker_bitfinex_btc_usd href="//www.feixiaohao.com/currencies/bitcoin/">BTC/Bitfinex</a>
+                        <a id=ticker_bitfinex_btc_usd>BTC/Bitfinex</a>
                         <span>53033.87</span>
                     </li>
                     <li>
-                        <a id=ticker_binance_eth_usdt href="//www.feixiaohao.com/currencies/ethereum/">ETH/Binance</a>
+                        <a id=ticker_binance_eth_usdt>ETH/Binance</a>
                         <span>4500.17</span>
                     </li>
                     <li>
-                        <a id=ticker_bitfinex_eos_usd href="//www.feixiaohao.com/currencies/eos/">EOS/Bitfinex</a>
+                        <a id=ticker_bitfinex_eos_usd >EOS/Bitfinex</a>
                         <span>83.91</span>
                     </li>
                 </ul>
@@ -194,80 +194,5 @@
         <script src="scripts/layer/layer.js"></script>
         <script></script>
         <script>
-            // var userid = 166654;
-            // if ($('.editcustom').length > 0) {
-            //     var sort = null;
-            //     $('.editcustom').click(function () {
-            //         var sortResult = [];
-            //         var deleteResult = [];
-            //         $('body').css('overflow', 'hidden');
-            //         var ii = layer.load(1)
-            //         $.ajax({
-            //             url: apiHost + "user/selectuserticker",
-            //             dataType: 'json',
-            //             type: 'get',
-            //             xhrFields: {
-            //                 withCredentials: true
-            //             },
-            //             success: function (data) {
-            //                 if (data.length === 0) {
-            //                     layer.msg('你还没有添加自选'); return;
-            //                 }
-            //                 var div2 = '<div class="sortwindow"><div class="pageheader"><div class="back cancel"></div><div class="h1"><h1>编辑自选</h1></div><a class="sure">保存</a></div><ul class="odercusotm" id="sortable"></ul></div>';
-            //                 layer.open({ type: 1, area: ['100vw', '100vh'], shadeClose: false, content: div2, title: false, closeBtn: 0 });
-            //                 var li = $('<li><div class="leftSide"><span class="tit"><img src="https://static.feixiaohao.com/Coin/8cc736e4abd44c3d689eb1599a27edb_small.png"><span>ETH/BTC</span></span><span class="sub">OKEX</span></div><a class="handl"></a><a class="delete2">×</a></li>');
-            //                 var imgsrc = '//static.feixiaohao.com';
-            //                 for (var i = 0, l = data.length; i < l; i++) {
-            //                     li.find('.tit img').attr('src', imgsrc + data[i].CoinLogo.toLowerCase().replace("/uploadfiles", ""));
-            //                     li.find('.tit span').html(data[i].CoinSymbolPair);
-            //                     li.find('.sub').html(data[i].SiteName);
-            //                     li.attr('data_val', userid + '#' + data[i].CoinCode + '#' + data[i].CoinSymbolPair + '#' + data[i].SiteCode);
-            //                     $('.odercusotm').append(li.clone());
-            //                 }
-            //                 $("#sortable").focus();
-            //                 sort = Sortable.create($("#sortable")[0], { animation: 150, ghostClass: 'drag', chosenClass: 'chosen', handle: '.handl' });
-            //                 layer.close(ii);
-            //             }, error: function () {
-
-            //             }
-            //         }); $('body').on('click', '.sortwindow .cancel', function () {
-            //             $('.layui-layer-close').trigger('click');
-            //             $('.layui-layer-move').remove();
-            //             $('.layui-layer-shade').remove();
-            //             $('.layui-layer').remove();
-            //             sort = null;
-            //         });
-            //         $('body').on('click', '.sortwindow li .delete2', function () {
-            //             var val = $(this).closest('li').attr('data_val');
-            //             deleteResult.push(val); $(this).closest('li').remove();
-            //         });
-            //         $('body').on('click', '.sortwindow .sure', function () {
-            //             var li = $('#sortable li');
-            //             for (var i = 0; i < li.length; i++) {
-            //                 sortResult.push(li.eq(i).attr('data_val'))
-            //             }
-            //             var sendResult = { sort: sortResult, del: deleteResult };
-            //             console.log(sendResult);
-            //             var parms = new Object();
-            //             parms["userid"] = userid.toString().trim();
-            //             parms["pairs"] = sortResult.toString().trim();
-            //             $.ajax({
-            //                 url: apiHost + "user/updateuserticker",
-            //                 data: parms,
-            //                 type: "post",
-            //                 async: true,
-            //                 xhrFields: {
-            //                     withCredentials: true
-            //                 }, success: function (data) {
-            //                     UpdateResponse(data);
-            //                     layer.close(ii);
-            //                 }
-            //             });
-            //         });
-            //         function UpdateResponse(data) {
-            //             var result = eval("(" + data + ")"); if (result.status == "success") { layer.msg('更新成功'); location.reload(); }
-            //             else { layer.msg('更新失败。') }
-            //         }
-            //     });
-            // }
+            
         </script>

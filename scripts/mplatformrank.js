@@ -90,7 +90,6 @@ GbiGraph.prototype.finishUpdateCharts = function (seriesData) {
 GbiGraph.prototype.fetchAndLoad = function (callback, start, end) {
     var sitecode = $("#HSiteCode").val();
     var that = this;
-    var apiDomain = "//mapi.feixiaohao.com";
     timeParams = ""
     if (start !== undefined && end !== undefined) {
         timeParams = start + "/" + end + "/";

@@ -151,8 +151,6 @@ fixedNav();
  * Created by zfd on 2017/8/8.
  */
 
-// var socketUrl = '//socket.feixiaohao.com/lcc';
-// var apiHots = "//api.feixiaohao.com/";
 var con = $('<div class="autocomplete"></div>');
 var tit = $('<div class="tit"></div>');
 var ul = $('<ul class="datalist"></ul>');

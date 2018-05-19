@@ -3355,8 +3355,6 @@ CurrencyDetailGraph.prototype.finishUpdateCharts = function(seriesData) {
 };
 CurrencyDetailGraph.prototype.fetchAndLoad = function(callback, start, end) {
     var that = this;
-    //var slug = $("#coincode").val();
-    //var apiDomain = "//api.feixiaohao.com";
     timeParams = "";
     if (start !== undefined && end !== undefined) {
         timeParams = start + "/" + end + "/"

@@ -1,4 +1,3 @@
-//var apiHost = "//mapi.feixiaohao.com/";
 
 function totop() {
     document.write("<div class='totop'><i></i></div>")

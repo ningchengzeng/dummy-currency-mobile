@@ -135,7 +135,6 @@ GbiGraph.prototype.finishUpdateCharts = function (seriesData) {
 GbiGraph.prototype.fetchAndLoad = function (callback, start, end) {
 
     var that = this;
-    //var apiDomain = "//mapi.feixiaohao.com";
     timeParams = ""
     if (start !== undefined && end !== undefined) {
         timeParams = start + "/" + end + "/";
