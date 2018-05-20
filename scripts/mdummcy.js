@@ -681,55 +681,38 @@ var searchIndex = {
  * @type {{process: currencies.process}}
  */
 var currencies = {
-    exchageRowTop: function (data) {
-        var transaction = "";
-        if (data.transaction.href != "") {
-            transaction = "<a href=\"" + data.transaction.href + "\" target=\"_blank\"> " + data.transaction.title + " </a>";
-        } else {
-            transaction = data.transaction.title;
-        }
-
-        return '<tr class="adList">'
-            + '<td>' + data.index + '</td>'
-            + '<td><a href="' + data.exchange.href + '" target="_blank">' + data.exchange.title + '</a></td>'
-            + '</tr>';
-    },
-    exchageRow: function (data) {
-        var transaction = "";
-        if (data.transaction.href != "") {
-            transaction = "<a href=\"" + data.transaction.href + "\" target=\"_blank\"> " + data.transaction.title + " </a>";
-        } else {
+    exchageRow: function(data){
+        var transaction ="";
+        if(data.transaction.href != ""){
+            transaction = "<a href=\""+data.transaction.href+"\" target=\"_blank\"> "+data.transaction.title+" </a>";
+        }else{
             transaction = data.transaction.title;
         }
 
         return "<tr>" +
-            "    <td>" + data.index + "</td>" +
+            "    <td>"+data.index+"</td>" +
             "    <td>" +
-            "        <a href=\"" + data.exchange.href + "\" target=\"_blank\">" +
-            "            <img height='15' width='18' src=\"" + data.exchange.icon + "\" alt=\"" + data.exchange.title + "\">" + data.exchange.title + "</a>" +
+            "        <a href=\""+ data.exchangeHref + "\" target=\"_blank\">" +
+            "            <img height='15' width='18' src=\"" +data.exchangeIcon+ ".jpg\" alt=\"" + data.exchangeTitle + "\">" + data.exchangeTitle + "</a>" +
             "    </td>" +
-            "    <td>" + transaction + "</td>" +
+            "    <td>" +transaction+ "</td>" +
             "    <td class=\"price\" " +
-            "         data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" " +
-            "         data-btc=\"" + data.price.btc + "\" " +
-            "         data-native=\"" + data.price.native + "\">" + data.price.init + "</td>" +
-            "    <td>" + data.ammount + "</td>" +
+            "         data-usd=\""+data.price.usd+"\" data-cny=\""+data.price.cny+"\" " +
+            "         data-btc=\""+data.price.btc+"\" " +
+            "         data-native=\""+data.price.native+"\">" +data.price.init+ "</td>" +
+            "    <td>" +data.ammount+ "</td>" +
             "    <td class=\"volume\" " +
-            "             data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" " +
-            "         data-btc=\"" + data.volume.btc + "\" " +
-            "         data-native=\"" + data.volume.native + "\">" + data.volume.init + "</td>" +
-            "    <td>" + data.exchange.proportion + "</td>" +
+            "             data-usd=\""+data.volume.usd+"\" data-cny=\""+data.volume.cny+"\" " +
+            "         data-btc=\""+data.volume.btc+"\" " +
+            "         data-native=\""+data.volume.native+"\">" +data.volume.init+ "</td>" +
+            "    <td>"+data.proportion+"</td>" +
             "    <td>" + data.time + "</td>" +
-            "<td><div class='more add' onclick='addlogin();'>添加自选</div></td>"
-        "</tr>"
+            "</tr>"
     },
-    exchage: function (list) {
-        $(".tableMain tbody:eq(0)").empty();
-        $(".tablefixed tbody:eq(0)").empty();
-        $(list).each(function (index, item) {
-            $(".tablefixed tbody:eq(0)").append(currencies.exchageRowTop(item));
-            $(".tableMain tbody:eq(0)").append(currencies.exchageRow(item));
-
+    exchage: function(list){
+        $("div#tickerlist div.boxContain table.table3.tableMaxWidth tbody:eq(0)").empty();
+        $(list).each(function(index, item){
+            $("div#tickerlist div.boxContain table.table3.tableMaxWidth tbody:eq(0)").append(currencies.exchageRow(item));
         });
     },
     details: function (data, focus) {
@@ -805,120 +788,6 @@ var currencies = {
                 $('#qknet').append(res.substr(0, res.length - 1));
             }
         }
-
-        // //热门概念
-        // if (data.concept) {
-        //     $(data.concept).each(function (index, item) {
-        //         $("li#concept span.value").append("<a href=\"conceptcoin.html?id=" + item.index + "\" target=\"_blank\">" + item.title + "</a>");
-        //     });
-        // } else {
-        //     $("li#concept").hide();
-        // }
-
-        // if (data.funding) {
-        //     $("li#funding span.value").append('<a href="#ico">' + data.funding.price + '</a>');
-        //     if (data.funding.up != "") {
-        //         $("li#funding span.value").append('<span class="tags-ico">' + data.funding.up + '</span>');
-        //     }
-
-        //     currencies.icoAjax(data.code, function (data) {
-        //         if (data) {
-        //             console.log(data);
-        //             $("div#icotable table")
-        //                 .append('<tr>' +
-        //                     '    <th>状态</th>' +
-        //                     '    <th>代币平台</th>' +
-        //                     '    <th>ICO分配<div class="toolTips"><div class="text">T：团队/合作伙伴/贡献者，B:赏金，C：基金会，O:其他</div></div></th>' +
-        //                     '    <th>投资者占比(%)<div class="toolTips"><div class="text">众筹目标的百分比，不是货币总量的百分比</div></div></th>' +
-        //                     '    <th>ICO总量</th>' +
-        //                     '    <th>ICO发售量</th>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <td>' + data.state + '</td>' +
-        //                     '    <td>' + data.amount + '</td>' +
-        //                     '    <td>' + data.distribution + '</td>' +
-        //                     '    <td>' + data.proportion + '</td>' +
-        //                     '    <td>' + data.volume + '</td>' +
-        //                     '    <td>' + data.salesVolume + '</td>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <th>众筹起始时间</th>' +
-        //                     '    <th>众筹结束时间</th>' +
-        //                     '    <th>开售价格</th>' +
-        //                     '    <th>众筹方式</th>' +
-        //                     '    <th>众筹目标</th>' +
-        //                     '    <th>众筹金额</th>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <td>' + data.startDate + '</td>' +
-        //                     '    <td>' + data.endDate + '</td>' +
-        //                     '    <td>' + data.price + '</td>' +
-        //                     '    <td>' + data.method + '</td>' +
-        //                     '    <td>' + data.object + '</td>' +
-        //                     '    <td>' + data.platform + '</td>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <th>众筹均价</th>' +
-        //                     '    <th>成功众筹数量</th>' +
-        //                     '    <th>成功众筹金额</th>' +
-        //                     '    <th>特点</th>' +
-        //                     '    <th>安全审计</th>' +
-        //                     '    <th>法律形式</th>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <td>' + data.argPrice + '</td>' +
-        //                     '    <td>' + data.successAmount + '</td>' +
-        //                     '    <td>' + data.successPrice + '</td>' +
-        //                     '    <td>' + data.characteristic + '</td>' +
-        //                     '    <td>' + data.audit + '</td>' +
-        //                     '    <td>' + data.law + '</td>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <th>管辖区域</th>' +
-        //                     '    <th>法律顾问</th>' +
-        //                     '    <th>代售网址</th>' +
-        //                     '    <th>Blog地址</th>' +
-        //                     '    <th></th>' +
-        //                     '    <th></th>' +
-        //                     '</tr>' +
-        //                     '<tr>' +
-        //                     '    <td>' + data.area + '</td>' +
-        //                     '    <td>' + data.lawer + '</td>' +
-        //                     '    <td><a href=\'' + data.website + '\' target=\'_blank\' rel=\'nofollow\'>' + data.website + '</a></td>' +
-        //                     '    <td><a href=\'' + data.blogSite + '\' target=\'_blank\' rel=\'nofollow\'>' + data.blogSite + '</a></td>' +
-        //                     '    <td></td>' +
-        //                     '    <td></td>' +
-        //                     '  </tr>');
-        //             $("div#icotable").show();
-        //         }
-        //     });
-
-        // } else {
-        //     $("li#funding").hide();
-        // }
-
-        // if (data.assets) {
-        //     $("li#assets span.value").append(data.assets);
-        // } else {
-        //     $("li#assets").hide();
-        // }
-
-        // if (data.assetsPlatform) {
-        //     $("li#assetsPlatform span.value").append(data.assetsPlatform);
-        // } else {
-        //     $("li#assetsPlatform").hide();
-        // }
-    },
-    icoAjax: function (code, callback) {
-        $.ajax({
-            url: BASE_URL + "mapi/mobile/getico",
-            type: "GET",
-            dataType: 'json',
-            data: "currency=" + code,
-            success: function (data) {
-                callback(data.result);
-            }
-        });
     },
     dataAjax: function (code) {
         $.ajax({
@@ -1000,8 +869,6 @@ var currencies = {
                     }]
 
                 });
-                // var coinCode = GetRequest().currency.split('/')[0];
-                // var pieArr = [];
                 $('#mpiechart_coinvol').highcharts().series[0].setData(pieArr);
             }
         });
@@ -1025,10 +892,6 @@ var currencies = {
         currencies.dataAjax(coinCode);
         currencies.loadCoinEvent(coinCode);
         currencies.loadPiechartCoinvol(coinCode);
-
-        //util.loadhander();
-        // util.showmarket();
-        //util.loadconcept(0);//热门概念
     }
 };
 
