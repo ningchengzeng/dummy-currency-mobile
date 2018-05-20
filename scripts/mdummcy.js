@@ -1,4 +1,4 @@
-var BASE_URL = "http://139.162.90.234:81/";
+var BASE_URL = "http://192.168.99.101/";
 
 $($('.footer').children()[2]).css('display','none');
 $($('.footer').children()[1]).css('display','none');
@@ -56,7 +56,7 @@ function loaduserinfo() {
         success: function (data) {
             if (data.status == "success") {
                 if (data.username.length > 0 || data.userid.length > 0) {
-                    $(".span .username").html(data.username);
+                    $("span#username").html(data.username);
                     $(".loginBar").css('display', 'none');
                     $('#userinfo').css('display', 'block');
                 } else {
@@ -83,7 +83,6 @@ function addfocus(self) {
         if ($(self).attr("focus") == "true") {
             return;
         }
-
         if (currency) {
             $.ajax({
                 type: "POST",
@@ -98,7 +97,10 @@ function addfocus(self) {
                         $(self).attr("focus", true).html("已经关注");
                     }
                     else {
-                        $(".login").click();
+                        layer.msg("请登录后在进行关注");
+                        window.setTimeout(function(){
+                            window.location.replace("login.html")
+                        },2000);
                     }
                 }
             });
@@ -112,8 +114,7 @@ function addfocus(self) {
     }
 }
 
-function unfocus(self) {
-    var currency = $(self).attr("currency");
+function unfocus(currency) {
     $.ajax({
         type: "POST",
         url: BASE_URL + "user/unfocus",
@@ -123,7 +124,7 @@ function unfocus(self) {
             "currency": currency
         },
         success: function (data) {
-            alert(data.context)
+            layer.msg(data.context)
             if (data.status == "success") {
                 location.reload();
             }
@@ -158,17 +159,219 @@ function checkAccount() {
     }
 }
 
+var userticker = {
+    pageCount: 1,
+    pageSize: 50,
+    pageCurrent: 1,
+    rowName: function(item){
+        return "<tr>" +
+            "      <td>" + item.index + "</td><td style='text-align: center;'><a href='javascript:unfocus(\""+item.code+"\")'>取消</a></td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" + item.code + "\">" +
+            "              <img src=\"" + item.icon + "\" alt=\"" + item.title + "\">" + item.title +
+            "          </a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    row: function(data){
+        var updown24HCalss = "text-red";
+        if (data.updown24H > 0) {
+            updown24HCalss = "text-green";
+        }
+        return " <tr>" +
+            "      <td>" + data.index + "</td><td></td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" + data.code + "\">" +
+            "              <img src=\"" + data.icon + "\" alt=\"" + data.title + "\">" + data.title +
+            "          </a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=" + data.code + "\" class=\"price\" data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" data-btc=\"" + data.price.cny + "\">" + data.price.init + "</a>" +
+            "      </td>" +
+            "      <td>" +
+            "          <div class=\"" + updown24HCalss + "\">" + data.updown24H + "%</div>" +
+            "      </td>" +
+            "      <td class=\"market-cap\" data-usd=\"" + data.marketCap.usd + "\" data-cny=\"" + data.marketCap.cny + "\" data-btc=\"" + data.marketCap.btc + "\">" + data.marketCap.init + " </td>" +
+            "      <td>" + data.amount + "</td>" +
+            "      <td>" +
+            "          <a href=\"currencies.html?currency=bitcoin#markets\" class=\"volume\" data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" data-btc=\"" + data.volume.cny + "\">" + data.volume.init + "</a>" +
+            "      </td>" +
+            "  </tr>";
+    },
+    list: function(){
+        var data = {};
+        data.pageSize = index.pageSize;
+        data.page = index.pageCurrent;
+
+        if(index.type){
+            data.type= index.type;
+        }
+        if(index.limit){
+            data.limit= index.limit;
+        }
+
+        data["psession"] = localStorage.getItem("psession")
+
+        $.ajax({
+            url: BASE_URL +"user/currency",
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                $(data.result).each(function (indexData, item) {
+                    $("tbody#usertickerpageBodyName").append(userticker.rowName(item));
+                    $("tbody#usertickerpageBody").append(userticker.row(item));
+                });
+            }
+        });
+    },
+    getUserInfo: function(){
+        $.ajax({
+            type: "POST",
+            url: BASE_URL+ "user/getUserInfo",
+            dataType: "json",
+            data: {
+                "psession": localStorage.getItem("psession")
+            },
+            success: function (data) {
+                if (data.status == "success") {
+                    if (data.username.length > 0 || data.userid.length > 0) {
+                        userticker.list();
+                        $("div.loginTip").hide();
+                    }
+                }
+            }
+        });
+    },
+    process: function(){
+        userticker.getUserInfo();
+    }
+};
+
+var editpwd = {
+    modify: function(password){
+        $.ajax({
+            url: BASE_URL + "user/main/modifypassword",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "psession": localStorage.getItem("psession"),
+                "password": password
+            },
+            success: function(data){
+                if(data.status == "success"){
+                    layer.msg("密码修改成功");
+                    setTimeout(function(){
+                        window.location.replace("setting.html");
+                    },1000);
+                }else{
+                    layer.msg(data.content);
+                }
+            },
+            error: function(){
+                alert("密码修改失败");
+            }
+        });
+    },
+    process: function(){
+        $('.login').click(function(){
+            var pwd=$('#pwd').val();
+            var pwd1=$('#pwd1').val();
+            var pwd2=$('#pwd2').val();
+            if(pwd==''||pwd1==''||pwd2==''){layer.msg('请填写完整表单再提交');return false}
+            if(pwd1!==pwd2){layer.msg('两次密码输入不正确');return false}
+            if(pwd1.length<6){layer.msg('密码长度必须大于6');return false}
+           editpwd.modify({
+               old: pwd,
+               new1: pwd1,
+               new2: pwd2,
+           })
+        });
+    }
+};
+
+var setting = {
+    dataAjax: function(){
+        $.ajax({
+            url: BASE_URL + "user/main/userInfo",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "psession": localStorage.getItem("psession")
+            },
+            success: function (data) {
+                if(data.status == "success"){
+                    $("div.userHead div.tit").text(data.usernick);
+
+                    $("ul.userInfo li:eq(0) div.val").html(data.username+ "&nbsp;&nbsp;");
+                    $("ul.userInfo li:eq(1) div.val").html(data.usernick + "&nbsp;&nbsp;");
+                    $("div.editName input").val(data.usernick);
+                }
+                else{
+                    layer.msg("账户没有登录");
+                    window.location.replace("index.html");
+                }
+            }
+        });
+    },
+    //用户昵称修改
+    namenick:function(usernick){
+        $.ajax({
+            url: BASE_URL + "user/main/usernick",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "psession": localStorage.getItem("psession"),
+                "usernick": usernick
+            },
+            success: function(data){
+                layer.msg("昵称修改成功");
+
+                $('.black').fadeOut('fast');
+                $('.editName').fadeOut('fast');
+
+                setting.dataAjax();
+            },
+            error: function(){
+                layer.msg("昵称修改失败");
+            }
+        });
+    },
+    process: function(){
+        setting.dataAjax();
+        $('#editName').click(function () {
+            $('.black').show();
+            $('.editName').fadeIn('fast'); return false
+        });
+        $('div.editName .cancel').click(function () {
+            $('.black').fadeOut('fast');
+            $('.editName').fadeOut('fast');
+        });
+        $('.editName .sure').click(function () {
+            var ii = layer.load(2);
+            var value = $('.editName input').val();
+            if (value == '') {
+                layer.close(ii);
+                layer.msg('请输入昵称');
+                return false
+            }
+            setting.namenick(value);
+        });
+
+    }
+};
+
 var login = {
     loginResponse: function (result) {
         if (result.status == "success") {
-            alert(result.content);
+            layer.msg(result.content);
             window.location.replace('index.html?' + Math.random());
             window.localStorage.setItem("psession", result.content);
         }
         else {
             $("button#loginsite").removeAttr("disabled");
             $("button#loginsite").html("登陆");
-            alert(result.content);
+            layer.msg(result.content);
         }
 
     },
@@ -176,12 +379,12 @@ var login = {
         $("button#loginsite").click(function () {
             var cou = 0;
             if ($('#user').val().trim() == '') {
-                alert("帐号名不能为空");
+                layer.msg("帐号名不能为空");
                 cou = cou + 1
 
             }
             if ($('#pwd').val().trim() == '') {
-                alert("密码名不能为空");
+                layer.msg("密码名不能为空");
                 cou = cou + 1
             }
             if (cou != 0) {
@@ -209,37 +412,46 @@ var login = {
         });
     }
 };
-var register = {
 
+/**
+ * 账户注册
+ * @type {{checkPhone: register.checkPhone, regsmsResponse: register.regsmsResponse, registerResponse: register.registerResponse, process: register.process}}
+ */
+var register = {
+    checkPhone: function (p) {
+        var re = /^1(3|4|5|7|8)\d{9}$/;
+        if (!re.test(p)) {
+            return false;
+        }
+        else return true;
+    },
     //处理手机重置密码发送短信验证码的反馈信息
     regsmsResponse: function (result) {
         if (result == "1") {
-            alert("手机短信验证码发送成功!");
+            layer.msg("手机短信验证码发送成功!");
         }
         else if (result == "0") {
-            alert("手机短信验证码发送失败!");
+            layer.msg("手机短信验证码发送失败!");
         }
         else if (result == "2") {
-            alert("短信验证码发送频繁, 休息下吧!");
+            layer.msg("短信验证码发送频繁, 休息下吧!");
         }
         else if (result == "3") {
-            alert("手机号码已注册!");
+            layer.msg("手机号码已注册!");
         }
         else {
-            alert("手机号码不能为空!");
+            layer.msg("手机号码不能为空!");
         }
     },
     //处理注册的反馈信息
     registerResponse: function (result) {
         if (result.status == "success") {
-            alert(result.content);
+            layer.msg(result.content);
             setTimeout(function () { window.location.href = 'login.html'; }, 3000);
-
         }
         else {
-            alert(result.content);
+            layer.msg(result.content);
         }
-
     },
     process: function () {
         $('#register').click(function () {
@@ -247,27 +459,33 @@ var register = {
             var phonecode = $('#phonecode').val();
             var pwd1 = $('#pwd').val();
             var pwd2 = $('#pwd2').val();
+            var imgcode = $("input.imgcode1").val().trim();
             //var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
             if (name == '' || phonecode == '' || pwd1 == '' || pwd2 == '') {
-                alert('请填写完整表单再提交');
+                layer.msg('请填写完整表单再提交');
                 return false
             }
             if (!checkPhone(name)) {
-                alert('手机号码格式不正确');
+                layer.msg('手机号码格式不正确');
                 return false
             }
             if (pwd1 !== pwd2) {
-                alert('两次密码输入必须一致');
+                layer.msg('两次密码输入必须一致');
                 return false
             }
             if (pwd1.length < 6) {
-                alert('密码长度必须大于6');
+                layer.msg('密码长度必须大于6');
                 return false
             }
-            var parms = new Object();
+            if(imgcode1.length != 4){
+                layer.msg('图片验证码不正确！');
+            }
+
+            var parms = {};
             parms["userid"] = name;
             parms["password"] = pwd1;
             parms["confirmPwd"] = pwd2;
+            parms["verifyImage"] = imgcode;
             parms["verifyCode"] = phonecode;
             $.ajax({
                 url: BASE_URL + "user/register",
@@ -278,16 +496,32 @@ var register = {
                     register.registerResponse(data);
                 },
                 error: function () {
-                    alert('网络错误，请重试')
+                    layer.msg('网络错误，请重试')
                 }
             })
+        });
+
+        $("#user").keyup(function(){
+            var telno = $('#user').val();
+            if(register.checkPhone(telno)){
+                $("#verifyImage").attr("src", BASE_URL + "user/verifyImage" + "?time=" + new Date().getTime()+ "&phone=" + telno);
+            }
+        });
+
+        $("#verifyImage").click(function(){
+            var telno = $("#user").val();
+            if(checkPhone(telno)){
+                $(this).attr("src", BASE_URL + "user/verifyImage" + "?time=" + new Date().getTime()+ "&phone=" + telno);
+            }else{
+                layer.msg("手机号码不正确！");
+            }
         });
 
         //发送短信验证码（手机找回）
         $('#sendsmsreg').click(function () {
             var telno = $('#user').val();
             debugger;
-            if (telno.length == 0) {
+            if (!register.checkPhone(telno)) {
                 layer.msg("手机号码不能为空!");
             }
             else {
@@ -305,9 +539,140 @@ var register = {
     }
 };
 
+/**
+ * 修改密码
+ * @type {{process: findpwd.process}}
+ */
+var findpwd = {
+    process: function(){
+        $("#backHome1").click(function(){
+            window.location.replace("index.html");
+        });
 
+        $("#telno").keyup(function(){
+            if(checkPhone($("#telno").val())){
+                $("#verifyImage").attr("src", BASE_URL + "user/verifyImage" + "?time=" + new Date().getTime()+ "&phone=" + $("#telno").val());
+            }
+        });
 
+        $("#verifyImage").click(function(){
+            if(checkPhone($("#telno").val())){
+                $(this).attr("src", BASE_URL + "user/verifyImage" + "?time=" + new Date().getTime()+ "&phone=" + $("#telno").val());
+            }else{
+                layer.msg("手机号码不正确！");
+            }
+        });
 
+        $("#sendsms").click(function(){
+            var telno = $("#telno").val();
+            if(!checkPhone(telno)){
+                return false;
+            }
+
+            $("#sendsms").attr("disabled", true);
+            $.ajax({
+                url: BASE_URL + "user/GetSmsFindPwd?telno=" + telno,
+                type: "GET",
+                async: true,
+                success: function (data) {
+                    var result = data.result;
+                    if (result == "1") {
+                        window.timeout = 360;
+                        window.interval = window.setInterval(function(){
+                            if(window.timeout == 0){
+                                $("#sendsms").attr("disabled", false);
+                                $("#sendsms").text("获取验证码");
+                                window.timeout = 360;
+                                window.clearTimeout(window.interval);
+                            }
+                            $("#sendsms").data("timeout", window.timeout);
+                            $("#sendsms").text(window.timeout + "秒");
+
+                            window.timeout --;
+                        },1000);
+
+                        layer.msg("*手机短信验证码发送成功");
+                    }
+                    else if(result=="0") {
+                        $("#sendsms").attr("disabled", false);
+                        layer.msg("*手机短信验证码发送失败");
+                    }
+                    else if(result=="2") {
+                        $("#sendsms").attr("disabled", false);
+                        layer.msg("*短信验证码发送频繁, 休息下吧！");
+                    }
+                    else if (result == "3") {
+                        $("#sendsms").attr("disabled", false);
+                        layer.msg("*账户不存在！");
+                    }
+                    else {
+                        $("#sendsms").attr("disabled", false);
+                        layer.msg("*手机号码不能为空");
+                    }
+                }
+            });
+        });
+        $("button#sendSmsbtn").click(function(){
+            if(!checkPhone($("input#telno").val())){
+                layer.msg("手机号码不正确");
+                return;
+            }
+            if($('input#imgcode').val().trim() == ''){
+                layer.msg('图片验证码不可以为空');
+                return;
+            }
+            if($('input#imgcode').val().trim().length != 4){
+                layer.msg('图片验证码长度不正确');
+                return;
+            }
+            if($('input#phonecode').val().trim() ==''){
+                layer.msg("手机验证码不可以为空");
+            }
+            if($('input#phonecode').val().trim().length !=4){
+                layer.msg('手机验证码长度不正确');
+                return;
+            }
+            //验证密码是否为空
+            if ($('input#pwd').val().trim() == '') {
+                layer.msg("密码不能为空");
+                return;
+            }
+            if($('input#pwd').val().trim().length<4){
+                layer.msg("密码长度必须大于4");
+                return;
+            }
+            //验证两次输入密码
+            if ($('input#repwd').val().trim() == '') {
+                layer.msg('两次密码输入必须一致');
+                return;
+            }
+            if ($('input#repwd').val().trim() != $('input#pwd').val()) {
+                layer.msg('两次密码输入必须一致');
+                return;
+            }
+
+            $.ajax({
+                url: BASE_URL + "user/finpwd",
+                type: "POST",
+                data:{
+                    phone: $("input#telno").val().trim(),
+                    captcha: $("input#phonecode").val().trim(),
+                    verifyImage: $("input#imgcode").val().trim(),
+                    password: $("input#pwd").val().trim(),
+                    repassword: $("input#repwd").val().trim()
+                },
+                async: true,
+                success: function (data) {
+                    if(data.code == 1){
+                        window.location.replace("index.html")
+                    }
+                    layer.msg(data.message);
+                }
+            });
+        });
+
+    }
+};
 
 /**
  * 工具处理
@@ -681,42 +1046,66 @@ var searchIndex = {
  * @type {{process: currencies.process}}
  */
 var currencies = {
-    exchageRow: function(data){
-        var transaction ="";
-        if(data.transaction.href != ""){
-            transaction = "<a href=\""+data.transaction.href+"\" target=\"_blank\"> "+data.transaction.title+" </a>";
-        }else{
+    exchageRowTop: function (data) {
+        var transaction = "";
+        if (data.transaction.href != "") {
+            transaction = "<a href=\"" + data.transaction.href + "\" target=\"_blank\"> " + data.transaction.title + " </a>";
+        } else {
+            transaction = data.transaction.title;
+        }
+
+        return '<tr class="adList">'
+            + '<td>' + data.index + '</td>'
+            + '<td><a href="' + data.exchange.href + '" target="_blank"><img height="15" width="18" src="' + data.exchange.icon + '" alt="' + data.exchange.title + '">' + data.exchange.title + '</a></td>'
+            + '</tr>';
+    },
+    exchageRow: function (data) {
+        var transaction = "";
+        if (data.transaction.href != "") {
+            transaction = "<a href=\"" + data.transaction.href + "\" target=\"_blank\">" + data.transaction.title + " </a>";
+        } else {
             transaction = data.transaction.title;
         }
 
         return "<tr>" +
-            "    <td>"+data.index+"</td>" +
+            "    <td>" + data.index + "</td>" +
             "    <td>" +
-            "        <a href=\""+ data.exchangeHref + "\" target=\"_blank\">" +
-            "            <img height='15' width='18' src=\"" +data.exchangeIcon+ ".jpg\" alt=\"" + data.exchangeTitle + "\">" + data.exchangeTitle + "</a>" +
+            "        <a href=\"" + data.exchange.href + "\" target=\"_blank\">" +
+            "            <img height='15' width='18' src=\"" + data.exchange.icon + "\" alt=\"" + data.exchange.title + "\">" + data.exchange.title + "</a>" +
             "    </td>" +
-            "    <td>" +transaction+ "</td>" +
+            "    <td>" + transaction + "</td>" +
             "    <td class=\"price\" " +
-            "         data-usd=\""+data.price.usd+"\" data-cny=\""+data.price.cny+"\" " +
-            "         data-btc=\""+data.price.btc+"\" " +
-            "         data-native=\""+data.price.native+"\">" +data.price.init+ "</td>" +
-            "    <td>" +data.ammount+ "</td>" +
+            "         data-usd=\"" + data.price.usd + "\" data-cny=\"" + data.price.cny + "\" " +
+            "         data-btc=\"" + data.price.btc + "\" " +
+            "         data-native=\"" + data.price.native + "\">" + data.price.init + "</td>" +
+            "    <td>" + data.ammount + "</td>" +
             "    <td class=\"volume\" " +
-            "             data-usd=\""+data.volume.usd+"\" data-cny=\""+data.volume.cny+"\" " +
-            "         data-btc=\""+data.volume.btc+"\" " +
-            "         data-native=\""+data.volume.native+"\">" +data.volume.init+ "</td>" +
-            "    <td>"+data.proportion+"</td>" +
+            "             data-usd=\"" + data.volume.usd + "\" data-cny=\"" + data.volume.cny + "\" " +
+            "         data-btc=\"" + data.volume.btc + "\" " +
+            "         data-native=\"" + data.volume.native + "\">" + data.volume.init + "</td>" +
+            "    <td>" + data.exchange.proportion + "</td>" +
             "    <td>" + data.time + "</td>" +
-            "</tr>"
+            "<td><div class='more add' onclick='addlogin();'>添加自选</div></td>"
+        "</tr>"
     },
-    exchage: function(list){
-        $("div#tickerlist div.boxContain table.table3.tableMaxWidth tbody:eq(0)").empty();
-        $(list).each(function(index, item){
-            $("div#tickerlist div.boxContain table.table3.tableMaxWidth tbody:eq(0)").append(currencies.exchageRow(item));
+    exchage: function (list) {
+        $(".tableMain tbody:eq(0)").empty();
+        $(".tablefixed tbody:eq(0)").empty();
+        $(list).each(function (index, item) {
+            $(".tablefixed tbody:eq(0)").append(currencies.exchageRowTop(item));
+            $(".tableMain tbody:eq(0)").append(currencies.exchageRow(item));
+
         });
     },
     details: function (data, focus) {
         if (data != null) {
+            $("div.boxTit div.more.add").attr("focus", focus);
+            if(focus){
+                $("div.boxTit div.more.add").text("已经关注");
+            }
+
+            $("div.boxTit div.more.add").attr("currency", data.code);
+
             $('#midName').text(data.title.cn + "(" + data.title.en + ")");//
             $('#coinLogo').attr('src', data.icon);//
             $('#fixedPriceimg').attr('src', data.icon);//
@@ -747,11 +1136,12 @@ var currencies = {
             $('#cjy').text("≈$" + util.toThousands(data.twentyPrice.usd));
             $('#cjbtc').text("≈" + util.toThousands(data.twentyPrice.btc) + " " + data.unit);
             $('#upOrDown').text(data.floatRate + "%");//
-            if(data.floatRate >= 0){
-                $('#upOrDown').attr("class","tag green");//
-            }else{
-                $('#upOrDown').attr("class","tag red");//
+            if (data.floatRate >= 0) {
+                $('#upOrDown').attr("class", "tag green");//
+            } else {
+                $('#upOrDown').attr("class", "tag red");//
             }
+
             $('#remark').text('');
             $('#remark').append(data.describe);
 
@@ -772,6 +1162,8 @@ var currencies = {
 
             $('#bbook').text(data.whitePaper.title);
             $('#bbook').attr('href', data.whitePaper.title);
+
+            $('#searchAllHQ').href = "";
             if (data.webSite.length != 0) {
                 var res = '';
                 for (var i = 0; i < data.webSite.length; i++) {
@@ -788,6 +1180,17 @@ var currencies = {
                 $('#qknet').append(res.substr(0, res.length - 1));
             }
         }
+    },
+    icoAjax: function (code, callback) {
+        $.ajax({
+            url: BASE_URL + "mapi/mobile/getico",
+            type: "GET",
+            dataType: 'json',
+            data: "currency=" + code,
+            success: function (data) {
+                callback(data.result);
+            }
+        });
     },
     dataAjax: function (code) {
         $.ajax({
@@ -869,6 +1272,8 @@ var currencies = {
                     }]
 
                 });
+                // var coinCode = GetRequest().currency.split('/')[0];
+                // var pieArr = [];
                 $('#mpiechart_coinvol').highcharts().series[0].setData(pieArr);
             }
         });
@@ -888,7 +1293,11 @@ var currencies = {
         drawPie('#piechar3', Math.round(Supply) / 100, '#ff8080');
     },
     process: function () {
-        var coinCode = GetRequest().currency.split('/')[0];
+        var coinCode = GetRequest().currency;
+        if (GetRequest().currency.indexOf('/') >= 0) {
+            coinCode = GetRequest().currency.split('/')[0];
+        }
+
         currencies.dataAjax(coinCode);
         currencies.loadCoinEvent(coinCode);
         currencies.loadPiechartCoinvol(coinCode);

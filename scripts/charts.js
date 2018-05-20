@@ -1,5 +1,5 @@
 //var baseUrl = "http://139.162.90.234/";
-var baseUrl = "http://139.162.90.234:81/";
+var baseUrl = "http://192.168.99.101/";
 function save_preferences(chartName, index, chart) {
     var seriesVisible = []
     for (i = 0; i < chart.series.length; i++) {

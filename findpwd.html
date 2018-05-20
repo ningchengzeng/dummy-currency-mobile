@@ -17,49 +17,51 @@
     <link href="themes/default/css/mstyle.css?v=11" rel=stylesheet>
     <link rel=stylesheet href="themes/default/css/cropper.min.css">
     <script src="scripts/jquery-2.1.1.js"></script>
+<body>
+<div class=content>
+    <div class=pageheader>
+        <div class=back onclick=window.history.go(-1)></div>
+    </div>
+    <div class=tabBox>
+        <div class=boxTit>
 
-    <body>
-        <div class=content>
-            <div class=pageheader>
-                <div class=back onclick=window.history.go(-1)></div>
+        </div>
+        <div class=tabBody>
+            <div class=form style=margin-top:30px>
+                <div class=formcell>
+                    <input placeholder=输入手机号 id="telno">
+                    <div class=tips>*用于登录和找回密码</div>
+                </div>
+                <div class="formcell code">
+                    <input placeholder=图形验证码 id=imgcode>
+                    <img id=verifyImage style=float:right;width:120px;height:35px alt="">
+                    <br>
+                    <br>
+                    <div class=tips>*输入右边验证码</div>
+                </div>
+                <div class="formcell code">
+                    <input placeholder=输入短信验证码 id=phonecode>
+                    <button id=sendsms type=button class=smsbtn style=float:right;width:120px;height:35px>获取验证码</button>
+                    <br>
+                    <br>
+                    <div class=tips>*收到的短信验证码</div>
+                </div>
+                <div class=formcell>
+                    <input type=password placeholder=新的密码 id=pwd>
+                </div>
+                <div class=formcell>
+                    <input type=password placeholder=再次输入密码 id=repwd>
+                </div>
             </div>
-            <div class=tabBox>
-                <div class=boxTit>
-                    
-                </div>
-                <div class=tabBody>
-                    <div class=form style=margin-top:30px>
-                        <div class=formcell>
-                            <input placeholder=输入手机号 id=phoneNum>
-                            <div class=tips>*用于登录和找回密码</div>
-                        </div>
-                        <div class="formcell code">
-                            <input placeholder=图形验证码 id=imgcode>
-                            <img id=verifyImage style=float:right;width:120px;height:35px alt="">
-                            <br>
-                            <br>
-                            <div class=tips>*输入右边验证码</div>
-                        </div>
-                        <div class="formcell code">
-                            <input placeholder=输入短信验证码 id=phonecode>
-                            <button id=sendsms type=button class=smsbtn style=float:right;width:120px;height:35px>获取验证码</button>
-                            <br>
-                            <br>
-                            <div class=tips>*收到的短信验证码</div>
-                        </div>
-                        <div class=formcell>
-                            <input type=password placeholder=新的密码 id=pwd>
-                        </div>
-                        <div class=formcell>
-                            <input type=password placeholder=再次输入密码 id=repwd>
-                        </div>
-                    </div>
-                    <div class=btngroup>
-                        <button id=sendSmsbtn class=login>确定</button>
-                        <button id=backHome1 onclick=backHome()>返回主页</button>
-                    </div>
-                </div>
+            <div class=btngroup>
+                <button id="sendSmsbtn" class="login">确定</button>
+                <button id="backHome1">返回主页</button>
             </div>
         </div>
-        <script src="scripts/msite.js"></script>
-        <script src="scripts/layer.js"></script>
+    </div>
+</div>
+<script src="scripts/layer.js"></script>
+<script src="scripts/mdummcy.js"></script>
+<script>findpwd.process();</script>
+</body>
+</html>

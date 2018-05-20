@@ -22,158 +22,145 @@
     <script src="scripts/jquery.autocomplete.min.js?v=112"></script>
     <script src="scripts/cropper.js"></script>
 
-    <body>
-        <nav class=memu>
-            <div class=list>
-                <div class=memuheader>导航
-                    <div class=back></div>
-                </div>
-                <ul class=navList>
-                    <li id=userinfo style=display:none>
-                        <a href="setting.html" style=color:blue class=userLink>
-                            <img src=themes/default/images/sharelogo.png alt="">
-                            <span class=name id=username></span>
-                            <span class=tit>个人中心</span>
-                        </a>
-                        <li>
-                            <a href="/userticker/">自选行情</a>
-                            <li>
-                                <div>行情数据</div>
-                                <ul>
-                                    <li>
-                                        <a href="/">所有</a>
-                                        <li>
-                                            <a href="/currencies/">货币</a>
-                                            <li>
-                                                <a href="/assets/">代币</a>
-                                                <li>
-                                                    <a href="/newcoin/">最近上市的货币</a>
-                                                    <li>
-                                                        <a href="/charts/">市值趋势</a>
-                                                        <li>
-                                                            <a href="/gbi/"> GBI指数</a>
-                                </ul>
-                                <li>
-                                    <a href="/exchange/">交易平台</a>
-                                    <li>
-                                        <div>排行榜</div>
-                                        <ul>
-                                            <li>
-                                                <a href="/maxchange/">涨跌幅排行榜</a>
-                                                <li>
-                                                    <a href="/vol/">24小时成交量排行（币种）</a>
-                                                    <li>
-                                                        <a href="/vol/exchange/">24小时成交量排行（平台）</a>
-                                                        <li>
-                                                            <a href="/vol/monthrank/">月成交量排行</a>
-                                        </ul>
-                                        <li>
-                                            <a href="/app/">App</a>
-                </ul>
-                <div class=loginBar style=display:none>
-                    <a href="/login/">
-                        <svg t=1514010607177 class=icon viewBox="0 0 1024 1024" version=1.1 xmlns=http://www.w3.org/2000/svg p-id=3548 xmlns:xlink=http://www.w3.org/1999/xlink
-                            width=14 height=14>
-                            <defs>
-                                <style></style>
-                            </defs>
-                            <path d="M756.11788 640.491443c24.466228 0 44.270273-19.904329 44.270273-44.404326 0-14.135952-6.580882-26.715455-16.83441-34.846646l0.231267-0.279363c-34.069957-26.452465-71.943542-48.136324-112.840998-63.830771 52.052516-44.799322 85.172845-111.145379 85.172845-185.343265 0-134.86664-109.036345-244.233514-243.496733-244.233514-134.464481 0-243.496733 109.366873-243.496733 244.233514 0 74.197886 33.116235 140.543943 85.172845 185.343265C188.18908 561.050136 69.990051 722.148208 69.901023 911.3565l0 0.083911c0.089028 24.457018 19.886933 44.321438 44.275389 44.321438 24.468275 0 44.182268-19.86442 44.270273-44.321438 0-195.881272 158.925592-355.246887 354.174462-355.246887 80.056314 0 153.758919 27.084868 213.094306 72.157413C733.644029 635.871215 744.337579 640.491443 756.11788 640.491443L756.11788 640.491443zM512.62217 467.204771c-85.434811 0-154.950048-69.730131-154.950048-155.417699 0-85.688591 69.520353-155.424862 154.950048-155.424862s154.950048 69.736271 154.950048 155.424862C667.572218 397.47464 598.051865 467.204771 512.62217 467.204771L512.62217 467.204771zM512.62217 467.204771M924.986939 789.326213l-66.407456 0 0-66.614164c0-18.384719-14.869662-33.305547-33.20424-33.305547-18.376533 0-33.20424 14.920828-33.20424 33.305547l0 66.614164-66.402339 0c-18.376533 0-33.20424 14.916734-33.20424 33.299407 0 18.388812 14.82873 33.305547 33.20424 33.305547l66.402339 0 0 66.609047c0 18.389836 14.82873 33.305547 33.20424 33.305547 18.334577 0 33.20424-14.914688 33.20424-33.305547l0-66.609047 66.407456 0c18.334577 0 33.20424-14.916734 33.20424-33.305547C958.191178 804.241924 943.321516 789.326213 924.986939 789.326213L924.986939 789.326213zM924.986939 789.326213"
-                                p-id=3549 fill=#555></path>
-                        </svg> 登录 </a>
-                    <a href="/register/">
-                        <svg t=1514010911810 class=icon viewBox="0 0 1024 1024" version=1.1 xmlns=http://www.w3.org/2000/svg p-id=4863 xmlns:xlink=http://www.w3.org/1999/xlink
-                            width=14 height=14>
-                            <defs>
-                                <style></style>
-                            </defs>
-                            <path d="M322.6 247.6h372.9c18.2 0 32.9 14.8 32.9 32.9 0 18.2-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9 0-18.2 14.7-32.9 32.9-32.9z m0 150.6h254.8c18.2 0 32.9 14.8 32.9 32.9S595.5 464 577.4 464H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m0 150.6h322.3c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m232.1 343.6c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H253c-67.9 0-122.3-57.3-122.3-127.1v-640C130.8 121.3 185.1 64 253 64h518c67.9 0 122.3 57.3 122.3 127.1v418.3c0 18.2-14.8 32.9-32.9 32.9-18.2 0-32.9-14.8-32.9-32.9V191.1c0-34.2-25.6-61.2-56.4-61.2H253c-30.7 0-56.4 27-56.4 61.2v640.1c0 34.2 25.6 61.2 56.4 61.2h301.7zM777 781.8h82.3c17.7 0 32 14.3 32 32s-14.3 32-32 32H777V928c0 17.7-14.3 32-32 32s-32-14.3-32-32v-82.2h-82.3c-17.7 0-32-14.3-32-32s14.3-32 32-32H713v-82.3c0-17.7 14.3-32 32-32s32 14.3 32 32v82.3z"
-                                p-id=4864 fill=#555555></path>
-                        </svg> 注册 </a>
-                </div>
-            </div>
-        </nav>
-        <div class=pageheader>
-            <div class=memubtn></div>
-            <div class=logo>
-                <a href="/">
-                    <img src="img/logof.png">
+<body>
+<nav class="memu">
+    <div class="list">
+        <div class="memuheader">
+            导航
+            <div class="back"></div>
+        </div>
+
+        <ul class="navList">
+            <li id="userinfo" style="display:none">
+                <a href="/setting" style="color:blue;" class="userLink">
+                    <img src="themes/default/images/sharelogo.png" alt="">
+                    <span class="name" id="username"></span>
+                    <span class="tit">个人中心</span>
                 </a>
-            </div>
-            <a class=search href="/search/"></a>
-        </div>
-        <script>$(document).ready(function () { loaduserinfo(); })</script>
-        <div class=userHead>
-            <img src="themes/default/images/sharelogo.png" alt="">
-            <div class=tit>15221432180</div>
-        </div>
-        <div class=box>
-            <ul class=userInfo>
-                <li>
-                    <div class=tit>登录账号</div>
-                    <div class=val>15221432180&nbsp;&nbsp;</div>
+            </li>
+
+            <li>
+                <a href="#">自选行情</a>
+            </li>
+            <li class="">
+                <div class="">行情</div>
+                <ul>
                     <li>
-                        <div class=tit>昵称</div>
-                        <a href="" class=edit id=editName>修改</a>
-                        <div class=val>152***180</div>
-                        <li>
-                            <a href="userticker.html" class=link>自选行情</a>
-                            <li>
-                                <a href="editpwd.html" class=link>修改密码</a>
-            </ul>
+                        <a href="index.html">所有</a>
+                    </li>
+                    <li>
+                        <a href="index.html">货币</a>
+                    </li>
+                    <li>
+                        <a href="index.html">代币</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div>排行榜</div>
+                <ul>
+                    <li>
+                        <a href="vol.html">24小时成交量排行（币种）</a>
+                    </li>
+                    <li>
+                        <a href="volexchange.html">24小时成交量排行（平台）</a>
+                    </li>
+                    <li>
+                        <a href="monthrank.html">月成交量排行</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div>趋势</div>
+                <ul>
+                    <li>
+                        <a href="maxchange.html">涨跌幅排行榜</a>
+                    </li>
+                    <li>
+                        <a href="newcoin.html">最近上市的货币</a>
+                    </li>
+                    <li>
+                        <a href="charts.html">市值趋势</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="exchange.html">交易平台</a>
+            </li>
+        </ul>
+
+        <div class="loginBar" style="display:none">
+            <a href="/login">
+                <svg t="1514010607177" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3548"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
+                    <defs>
+                        <style type="text/css"></style>
+                    </defs>
+                    <path d="M756.11788 640.491443c24.466228 0 44.270273-19.904329 44.270273-44.404326 0-14.135952-6.580882-26.715455-16.83441-34.846646l0.231267-0.279363c-34.069957-26.452465-71.943542-48.136324-112.840998-63.830771 52.052516-44.799322 85.172845-111.145379 85.172845-185.343265 0-134.86664-109.036345-244.233514-243.496733-244.233514-134.464481 0-243.496733 109.366873-243.496733 244.233514 0 74.197886 33.116235 140.543943 85.172845 185.343265C188.18908 561.050136 69.990051 722.148208 69.901023 911.3565l0 0.083911c0.089028 24.457018 19.886933 44.321438 44.275389 44.321438 24.468275 0 44.182268-19.86442 44.270273-44.321438 0-195.881272 158.925592-355.246887 354.174462-355.246887 80.056314 0 153.758919 27.084868 213.094306 72.157413C733.644029 635.871215 744.337579 640.491443 756.11788 640.491443L756.11788 640.491443zM512.62217 467.204771c-85.434811 0-154.950048-69.730131-154.950048-155.417699 0-85.688591 69.520353-155.424862 154.950048-155.424862s154.950048 69.736271 154.950048 155.424862C667.572218 397.47464 598.051865 467.204771 512.62217 467.204771L512.62217 467.204771zM512.62217 467.204771M924.986939 789.326213l-66.407456 0 0-66.614164c0-18.384719-14.869662-33.305547-33.20424-33.305547-18.376533 0-33.20424 14.920828-33.20424 33.305547l0 66.614164-66.402339 0c-18.376533 0-33.20424 14.916734-33.20424 33.299407 0 18.388812 14.82873 33.305547 33.20424 33.305547l66.402339 0 0 66.609047c0 18.389836 14.82873 33.305547 33.20424 33.305547 18.334577 0 33.20424-14.914688 33.20424-33.305547l0-66.609047 66.407456 0c18.334577 0 33.20424-14.916734 33.20424-33.305547C958.191178 804.241924 943.321516 789.326213 924.986939 789.326213L924.986939 789.326213zM924.986939 789.326213"
+                          p-id="3549" fill="#555"></path>
+                </svg>
+                登陆
+            </a>
+            <a href="/register">
+                <svg t="1514010911810" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4863"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
+                    <defs>
+                        <style type="text/css"></style>
+                    </defs>
+                    <path d="M322.6 247.6h372.9c18.2 0 32.9 14.8 32.9 32.9 0 18.2-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9 0-18.2 14.7-32.9 32.9-32.9z m0 150.6h254.8c18.2 0 32.9 14.8 32.9 32.9S595.5 464 577.4 464H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m0 150.6h322.3c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H322.6c-18.2 0-32.9-14.8-32.9-32.9s14.7-32.9 32.9-32.9z m232.1 343.6c18.2 0 32.9 14.8 32.9 32.9s-14.8 32.9-32.9 32.9H253c-67.9 0-122.3-57.3-122.3-127.1v-640C130.8 121.3 185.1 64 253 64h518c67.9 0 122.3 57.3 122.3 127.1v418.3c0 18.2-14.8 32.9-32.9 32.9-18.2 0-32.9-14.8-32.9-32.9V191.1c0-34.2-25.6-61.2-56.4-61.2H253c-30.7 0-56.4 27-56.4 61.2v640.1c0 34.2 25.6 61.2 56.4 61.2h301.7zM777 781.8h82.3c17.7 0 32 14.3 32 32s-14.3 32-32 32H777V928c0 17.7-14.3 32-32 32s-32-14.3-32-32v-82.2h-82.3c-17.7 0-32-14.3-32-32s14.3-32 32-32H713v-82.3c0-17.7 14.3-32 32-32s32 14.3 32 32v82.3z"
+                          p-id="4864" fill="#555555"></path>
+                </svg>
+                注册
+            </a>
         </div>
-        <div class=btngroup style=width:100%>
-            <a href="" style=width:100%;background:#fff;color:#555 rel=nofollow onclick="logout();return false">退出登录</a>
-        </div>
-        <div class=black></div>
-        <div class=editName>
-            <div class=tit>修改昵称</div>
-            <input placeholder=输入新昵称 value=152***180>
-            <div class=btngroup>
-                <button class=sure>修改</button>
-                <button class=cancel>取消</button>
-            </div>
-        </div>
-        <script type="text/javascript" src="scripts/mdummcy.js"></script>
-        <script type="text/javascript" src="scripts/layer.js"></script>
-        <script type="text/javascript" src="scripts/msite.js"></script>
-        <script type="text/javascript">
-            $('#editName').click(function () {
-                $('.black').show();
-                $('.editName').fadeIn('fast'); return false
-            })
-            $('.editName .cancel').click(function () {
-                $('.black').fadeOut('fast');
-                $('.editName').fadeOut('fast');
-            })
-            $('.editName .sure').click(function () {
-                var ii = layer.load(2);
-                var value = $('.editName input').val();
-                if (value == '') {
-                    layer.close(ii);
-                    layer.msg('请输入昵称');
-                    return false
-                }
-                $.ajax({
-                    url: BASE_URL + 'user/setting',
-                    type: 'POST',
-                    dataType: 'json',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    data: {
-                        username: $('.editName input').val()
-                    },
-                    async: false,
-                    success: function () {
-                        layer.close(ii);
-                        layer.msg('修改成功');
-                        window.location.reload();
-                    },
-                    error: function () {
-                        layer.close(ii);
-                        layer.msg('修改失败');
-                        window.location.reload();
-                    }
-                });
-            });
-        </script>
+
+    </div>
+</nav>
+<div class=pageheader>
+    <div class=memubtn></div>
+    <div class=logo>
+        <a href="/">
+            <img src="img/logof.png">
+        </a>
+    </div>
+</div>
+<script>$(document).ready(function () { loaduserinfo(); })</script>
+<div class=userHead>
+    <img src="themes/default/images/sharelogo.png" alt="">
+    <div class=tit></div>
+</div>
+<div class=box>
+    <ul class=userInfo>
+        <li>
+            <div class=tit>登录账号</div>
+            <div class=val></div>
+        <li>
+            <div class=tit>昵称</div>
+            <a href="" class=edit id=editName>修改</a>
+            <div class=val>152***180</div>
+        <li>
+            <a href="userticker.html" class=link>自选行情</a>
+        <li>
+            <a href="editpwd.html" class=link>修改密码</a>
+    </ul>
+</div>
+<div class=btngroup style=width:100%>
+    <a href="" style=width:100%;background:#fff;color:#555 rel=nofollow onclick="logout();return false">退出登录</a>
+</div>
+<div class=black></div>
+<div class=editName>
+    <div class=tit>修改昵称</div>
+    <input placeholder=输入新昵称 value="" >
+    <div class=btngroup>
+        <button class=sure>修改</button>
+        <button class=cancel>取消</button>
+    </div>
+</div>
+<script type="text/javascript" src="scripts/mdummcy.js"></script>
+<script type="text/javascript" src="scripts/layer.js"></script>
+<script type="text/javascript" src="scripts/msite.js"></script>
+<script type="text/javascript">
+    setting.process();
+</script>
+</body>
+</html>

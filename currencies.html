@@ -21,8 +21,6 @@
     <link href="themes/default/css/mstyle1.css" rel="stylesheet">
     <script src="js/jquery-2.1.1.js"></script>
     <link rel="stylesheet" href="themes/default/css/chartist.min.css">
-    
-
 </head>
 
 <body>
@@ -35,7 +33,7 @@
 
             <ul class="navList">
                 <li id="userinfo" style="display:none">
-                    <a href="/setting" style="color:blue;" class="userLink">
+                    <a href="setting.html" style="color:blue;" class="userLink">
                         <img src="themes/default/images/sharelogo.png" alt="">
                         <span class="name" id="username"></span>
                         <span class="tit">个人中心</span>
@@ -43,7 +41,7 @@
                 </li>
 
                 <li>
-                    <a href="#">自选行情</a>
+                    <a href="userticker.html">自选行情</a>
                 </li>
                 <li class="">
                     <div class="">行情</div>
@@ -154,7 +152,7 @@
                     <img id="coinLogo" src="#">
                     <span id="midName"></span>
                 </h1>
-                <div style="display:inline;float:right;" class="more add" onclick="addlogin();">添加自选</div>
+                <div style="display:inline;float:right;" class="more add" onclick="addfocus(this);">添加自选</div>
             </div>
             <div class="price1">
                 <div class="main">
@@ -230,21 +228,6 @@
                     </li>
 
                     <li class="longlist">
-                        <!-- <span class="tit">***</span>
-                        <span class="val" style="margin-top: -2px">
-                            <script type="text/javascript" src="//qq.liantu.com/areaqr/qq.js"></script>
-                            <style>
-                                .areaqr-text {
-                                    display: none;
-                                }
-                            </style>
-                            <script src="//qq.liantu.com/areaqr/telegram.js?style=1"></script>
-                            <style>
-                                .areaqr-tg-text {
-                                    display: none;
-                                }
-                            </style>
-                        </span> -->
                     </li>
                 </ul>
             </div>
@@ -326,7 +309,7 @@
         <div class="box">
             <div class="boxTit">
                 <h2>市场行情</h2>
-                <a href="coinmarket.html#litecoin">查看全部</a>
+                <a href="coinmarket.html" id="searchAllHQ">查看全部</a>
             </div>
             <div class="unitList">
                 <a href="#native" class="price-toggle" data-currency="native">平台价格</a>

@@ -330,38 +330,6 @@ function MoreSearchExchange(btn, url, obj) {
     });
 
 }
-function logout() {
-    if (confirm("确认退出吗？")) {
-        var parms = new Object();
-        $.ajax({
-            url: apiHost + "user/logout",
-            data: parms,
-            type: "post",
-            async: true,
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (data) {
-                logoutResponse(data);
-            }
-        });
-
-    }
-}
-//处理logout反馈信息
-function logoutResponse(data) {
-
-    var result = eval("(" + data + ")");
-    if (result.status == "success") {
-        window.location.href ='/?v=' + Math.random();
-    }
-    else {
-        alert(result.content);
-    }
-}
-
-
-
 
 $('.navList>li').click(function (e) {
     e.stopPropagation();
@@ -1302,8 +1270,9 @@ function loadmcoinevent() {
 //********************************
 //***********************找回密码
     function backHome() {
-        window.location.href = '/';
+        window.location.href = 'index.html';
     }
+
     //发送短信验证码（手机找回）
     $('#sendsms').click(function () {
         var telno = $('#phoneNum').val();
@@ -1875,28 +1844,4 @@ function loadmcoinevent() {
             })
         }
 
-    }
-	
-	
-    function loaduserinfo() {
-
-        // $.ajax({
-        //     url: apiHost + 'user/userinfo/', 
-        //     async: false,
-        //     dataType: "json",
-        //     xhrFields: {
-        //         withCredentials: true
-        //     },
-        //     success: function (data) {
-        //         if (null != data && null != data.Account && data.Account.length > 0)
-        //         {
-                   
-        //             $("#userinfo").css("display", "block");
-        //             $("#username").html(data.UserName);
-        //         } else {
-        //             $(".loginBar").css("display", "block");
-        //         }
-               
-        //     }
-        // });
     }
